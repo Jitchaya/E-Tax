@@ -127,24 +127,24 @@ codeunit 60000 "Json Tools"
     end;
 
     //Complex API Json
-    procedure API2Json(id: Integer): JsonObject
+    procedure API2Json(id: Code[10]): JsonObject
     var
         API: Record "API Setup";
         JO: JsonObject;
     begin
-        API.Get(id);
+        API.Get();
         JO.Add('SellerTaxId', API.SellerTaxId);
         JO.Add('SellerBranchId', API.SellerBranchId);
         JO.Add('UserCode', API.UserCode);
         JO.Add('AccessKey', API.AccessKey);
         JO.Add('APIKey', API.APIKey);
         JO.Add('ServiceCode', API.ServiceCode);
-        JO.Add('TextContent', Tasks2Json(API.idHeader));
+        JO.Add('TextContent', Tasks2Json(API."Primary Key"));
         JO.Add('PDFContent', API.PDFContent);
         exit(JO);
     end;
 
-    procedure Tasks2Json(LINEID: Integer): JsonObject
+    procedure Tasks2Json(LINEID: Code[10]): JsonObject
     var
         Task: Record "API Body";
         Line: Record "API Line";
@@ -153,10 +153,10 @@ codeunit 60000 "Json Tools"
         J2: JsonObject;
     //Tools: Codeunit "Json Tools";
     begin
-        Task.Setrange(idHeader, LINEID);
+        Task.Setrange("Primary Key", LINEID);
         if Task.FindSet() then
             repeat
-                Line.SetRange(idHeader, LINEID);
+                Line.SetRange("Primary Key", LINEID);
                 Line.SetRange(idBody, Task.idBody);
                 JO := Rec2Json(Task, 3);
                 JO.Add('LINE_ITEM_INFORMATION', Line2Json(Task));
@@ -172,7 +172,7 @@ codeunit 60000 "Json Tools"
     //Tools: Codeunit "Json Tools";
     begin
         JLE.Setrange("idBody", Task.idBody);
-        JLE.Setrange("idHeader", Task.idHeader);
+        JLE.Setrange("Primary Key", Task."Primary Key");
         if JLE.FindSet() then
             repeat
                 JA.Add(Rec2Json(JLE, 4));

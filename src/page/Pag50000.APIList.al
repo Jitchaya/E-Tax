@@ -1,6 +1,6 @@
 page 50000 "API List"
 {
-    Caption = 'API';
+    Caption = 'E-TAX';
     PageType = List;
     ApplicationArea = All;
     CardPageID = "Api Card";

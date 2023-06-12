@@ -6,12 +6,16 @@ table 50000 "API Setup"
     //Permissions = TableData "APITableHeader" = m;
     fields
     {
-        field(1; idHeader; Integer)
+        field(1; "Primary Key"; Code[10])
+        {
+            Caption = 'Primary Key';
+        }
+        /*field(1; idHeader; Integer)
         {
             Caption = 'idHeader';
             DataClassification = ToBeClassified;
             AutoIncrement = true;
-        }
+        }*/
         field(2; "Content-Type"; Text[250])
         {
             Caption = 'Content-Type';
@@ -91,11 +95,27 @@ table 50000 "API Setup"
             DataClassification = ToBeClassified;
             //InitValue = '';
         }
+        field(13; URL; Text[2048])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(14; "Authorization Type"; Enum "Authorization Type")
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(15; Saved; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(16; Output; Text[2048])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
     {
-        key(PK; idHeader)
+        key(PK; "Primary Key")
         {
             Clustered = true;
         }

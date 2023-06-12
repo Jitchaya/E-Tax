@@ -124,11 +124,11 @@ codeunit 50100 "Etax API"
         HttpRequestMessage.Method := 'POST';
         HttpRequestMessage.SetRequestUri('https://uatservice-etax.one.th/etaxjsonws/etaxsigndocument');
         HttpContent.GetHeaders(HttpHeadersContent);
-        ContentHeader.Add('Authorization', 'bearer ' + B);
+        ContentHeader.Add('Authorization', 'Bearer ' + B);
         HttpContent.getHeaders(ContentHeader);
         ContentHeader.clear();
         ContentHeader.Add('Content-Type', A);
-        HttpContent.WriteFrom(format(Tools.API2Json(0)));
+        HttpContent.WriteFrom(format(Tools.API2Json('0')));
         HttpRequestMessage.Content := HttpContent;
         HttpClient.Send(HttpRequestMessage, HttpResponseMessage);
         HttpResponseMessage.Content.ReadAs(JsonText);

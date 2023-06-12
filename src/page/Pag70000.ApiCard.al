@@ -423,6 +423,15 @@ page 70000 "API Card"
                 Caption = 'Tasks';
                 SubPageLink = "idBody" = FIELD(idBody);
             }
+            group(UserControlGroup)
+            {
+                Caption = 'Response';
+                Editable = false;
+                usercontrol(Response; "Microsoft.Dynamics.Nav.Client.WebPageViewer")
+                {
+                    ApplicationArea = All;
+                }
+            }
         }
     }
 
@@ -432,18 +441,25 @@ page 70000 "API Card"
         {
             action(API)
             {
-                trigger OnAction();
+                /*ApplicationArea = All;
+                PromotedCategory = Process;
+                Promoted = true;
+                PromotedIsBig = true;
+                Image = SendTo;
+                trigger OnAction()
                 var
+                    HandleRequest: Codeunit HandleRequest;
+                begin
+                    Message(HandleRequest.SendRequest(Rec, response));
+                    if Response <> '' then
+                        FillAddInResponse();
+                end;*/
+                //trigger OnAction();
+                /*var
                     cuAPI: Codeunit "Etax API";
 
                 begin
                     cuAPI.CallAPI();
-                end;
-                /*procedure API2Json(idBody: Code[20]) : JsonObject
-                var
-                API : Record "API Body";
-                JO : JsonObject;
-                begin
                 end;*/
                 /*var
                     Json: Codeunit "Json Tools";
@@ -454,12 +470,57 @@ page 70000 "API Card"
                 /*var
                     Tools: Codeunit "Json Tools";
                 begin
-                    Message('%1', format(Tools.API2Json(0)));
+                    Message('%1', format(Tools.API2Json('0')));
                 end;*/
+                ApplicationArea = All;
+                PromotedCategory = Process;
+                Promoted = true;
+                PromotedIsBig = true;
+                Image = SendTo;
+                trigger OnAction()
+                var
+                    HandleRequest: Codeunit "ETax API Test";
+                    Setup: Record "API Setup";
+                    RecPostman: Record "API Response";
+                begin
+                    Setup.Get();
+                    Message(HandleRequest.SendRequest(Setup, response));
+                    if Response <> '' then
+                        FillAddInResponse();
+                    RecPostman.Init();
+                end;
             }
         }
     }
+    var
+        Response: Text;
+    // RequestBody: Text;
+    trigger OnAfterGetCurrRecord()
+    begin
+        FillAddInResponse();
+    end;
 
+    /*trigger OnOpenPage()
+    var
+        RecPostman: Record "API Body";
+    begin
+        RecPostman.Reset();
+        RecPostman.SetRange(Saved, false);
+        RecPostman.DeleteAll();
+        if Rec.idBody = 0 then
+            Rec.Insert(true);
+    end;*/
+
+    /*local procedure FillAddInRequest()
+    var
+        Json: Codeunit "Json Tools";
+    begin
+    end;*/
+
+    local procedure FillAddInResponse()
+    begin
+        CurrPage.Response.SetContent(StrSubstNo('<textarea Id="TextArea" maxlength="%2" style="width:100%;height:100%;resize: none; font-family:"Segoe UI", "Segoe WP", Segoe, device-segoe, Tahoma, Helvetica, Arial, sans-serif !important; font-size: 10.5pt !important;" OnChange="window.parent.WebPageViewerHelper.TriggerCallback(document.getElementById(''TextArea'').value)">%1</textarea>', Response, MaxStrLen(Response)));
+    end;
     /*procedure API2Json(id: Integer): JsonObject
     var
         API: Record "API Setup";

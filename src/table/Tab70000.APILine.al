@@ -13,11 +13,17 @@ table 70000 "API Line"
             DataClassification = ToBeClassified;
             AutoIncrement = true;
         }
-        field(2; idHeader; Integer)
+        /*field(2; idHeader; Integer)
         {
             Caption = 'idHeader';
             DataClassification = ToBeClassified;
             TableRelation = "API Setup".idHeader;
+        }*/
+        field(2; "Primary Key"; Code[10])
+        {
+            Caption = 'Primary Key';
+            DataClassification = ToBeClassified;
+            TableRelation = "API Setup"."Primary Key";
         }
         field(3; idBody; Integer)
         {
@@ -259,7 +265,7 @@ table 70000 "API Line"
     }
     keys
     {
-        key(Key1; idHeader, idBody, idLine)
+        key(Key1; "Primary Key", idBody, idLine)
         {
             Clustered = true;
         }
