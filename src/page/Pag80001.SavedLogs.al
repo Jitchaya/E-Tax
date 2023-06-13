@@ -14,12 +14,12 @@ page 80001 "Saved Logs"
         {
             repeater(GroupName)
             {
-                /*field(idHeader; Rec.idHeader)
+                field(EntryNo; Rec.EntryNo)
                 {
                     ApplicationArea = All;
                     Caption = 'No.';
                     ToolTip = 'No.';
-                }*/
+                }
                 field(Method; Rec.Method)
                 {
                     ApplicationArea = All;
@@ -29,6 +29,11 @@ page 80001 "Saved Logs"
                 {
                     ApplicationArea = All;
                     ToolTip = 'URL';
+                }
+                field(Response; Rec.Response)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Response';
                 }
                 field("Authorization Type"; Rec."Authorization Type")
                 {
@@ -58,7 +63,9 @@ page 80001 "Saved Logs"
 
                 trigger OnAction();
                 begin
-
+                    Clear(Rec);
+                    Rec.DeleteAll();
+                    //CurrPage.Update();
                 end;
             }
         }

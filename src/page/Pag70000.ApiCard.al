@@ -481,13 +481,17 @@ page 70000 "API Card"
                 var
                     HandleRequest: Codeunit "ETax API Test";
                     Setup: Record "API Setup";
-                    RecPostman: Record "API Response";
+                    RecAPIResponse: Record "API Response";
                 begin
                     Setup.Get();
                     Message(HandleRequest.SendRequest(Setup, response));
                     if Response <> '' then
                         FillAddInResponse();
-                    RecPostman.Init();
+                    RecAPIResponse.Init();
+                    RecAPIResponse.URL := Setup.URL;
+                    RecAPIResponse.Method := Setup.Method;
+                    RecAPIResponse.Response := Response;
+                    RecAPIResponse.Insert(true);
                 end;
             }
         }
@@ -521,6 +525,7 @@ page 70000 "API Card"
     begin
         CurrPage.Response.SetContent(StrSubstNo('<textarea Id="TextArea" maxlength="%2" style="width:100%;height:100%;resize: none; font-family:"Segoe UI", "Segoe WP", Segoe, device-segoe, Tahoma, Helvetica, Arial, sans-serif !important; font-size: 10.5pt !important;" OnChange="window.parent.WebPageViewerHelper.TriggerCallback(document.getElementById(''TextArea'').value)">%1</textarea>', Response, MaxStrLen(Response)));
     end;
+
     /*procedure API2Json(id: Integer): JsonObject
     var
         API: Record "API Setup";

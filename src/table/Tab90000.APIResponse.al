@@ -13,7 +13,12 @@ table 90000 "API Response"
         }
         field(3; URL; Text[2048])
         {
-            DataClassification = ToBeClassified;
+            trigger OnValidate()
+            var
+                myInt: Integer;
+            begin
+
+            end;
         }
         field(4; "Authorization Type"; Enum "Authorization Type")
         {
@@ -24,15 +29,25 @@ table 90000 "API Response"
             Caption = 'Content-Type';
             DataClassification = ToBeClassified;
         }
-        field(6; RequestBody; Text[2048])
+        field(6; "Content Format"; Enum "Content Format")
+        {
+            Caption = 'Content Format';
+            DataClassification = ToBeClassified;
+        }
+        field(7; Response; Text[2048])
+        {
+            trigger OnValidate()
+            var
+                myInt: Integer;
+            begin
+
+            end;
+        }
+        field(8; Saved; Boolean)
         {
             DataClassification = ToBeClassified;
         }
-        field(7; Saved; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(8; Output; Text[2048])
+        field(9; Output; Text[2048])
         {
             DataClassification = ToBeClassified;
         }
@@ -54,9 +69,9 @@ table 90000 "API Response"
     begin
         if APIResponse.FindLast() then
             EntryNo := APIResponse.EntryNo + 1
-        else
+        /*else
             EntryNo := 1;
-        "Authorization Type" := "Authorization Type"::"No Auth";
+        "Authorization Type" := "Authorization Type"::"No Auth";*/
     end;
 
     trigger OnModify()
