@@ -16,7 +16,7 @@ table 50000 "API Setup"
             DataClassification = ToBeClassified;
             AutoIncrement = true;
         }*/
-        field(2; "Content-Type"; Text[250])
+        field(2; "Content-Type"; Enum "Content-Type")
         {
             Caption = 'Content-Type';
             DataClassification = ToBeClassified;
@@ -103,11 +103,15 @@ table 50000 "API Setup"
         {
             DataClassification = ToBeClassified;
         }
-        field(15; Saved; Boolean)
+        field(15; "Content Format"; Enum "Content Format")
         {
             DataClassification = ToBeClassified;
         }
-        field(16; Output; Text[2048])
+        field(16; Saved; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(17; Output; Text[2048])
         {
             DataClassification = ToBeClassified;
         }

@@ -38,7 +38,10 @@ codeunit 50200 "ETax API Test"
                     Content.GetHeaders(RequestHeader);
                     Content.WriteFrom(format(Tools.API2Json('0')));
                     RequestHeader.Remove(API.FieldCaption("Content-Type"));
-                    RequestHeader.Add(API.FieldCaption("Content-Type"), 'application/json');
+                    IF API."Content-Type" = API."Content-Type"::"X-www-form-urlencoded" THEN
+                        RequestHeader.Add(API.FieldCaption("Content-Type"), 'application/' + Format(API."Content-Type"))
+                    else
+                        RequestHeader.Add(API.FieldCaption("Content-Type"), 'application/' + Format(API."Content Format"));
                     RequestMessage.Content := Content;
                     HttpClient.Send(RequestMessage, ResponseMessage);
                 end;

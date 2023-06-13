@@ -33,11 +33,6 @@ page 60000 "Page Setup"
                     ApplicationArea = All;
                     Visible = false;
                 }
-                field("Content-Type"; Rec."Content-Type")
-                {
-                    Caption = 'Content-Type';
-                    ApplicationArea = All;
-                }
                 /*field("Authorization"; Rec."Authorization")
                 {
                     Caption = 'Authorization';
@@ -99,11 +94,21 @@ page 60000 "Page Setup"
                         CurrPage.Update();
                     end;
                 }
+                field("Content-Type"; Rec."Content-Type")
+                {
+                    Caption = 'Content-Type';
+                    ApplicationArea = All;
+                }
                 field(Authorization; Rec."Authorization")
                 {
                     //Visible = (Rec."Authorization Type" = Rec."Authorization Type"::"Brearer Token");
                     ApplicationArea = All;
                     ToolTip = 'Value of the Authorization field.';
+                }
+                field("Content Format"; Rec."Content Format")
+                {
+                    Caption = 'Content Format';
+                    ApplicationArea = All;
                 }
             }
         }
