@@ -454,13 +454,6 @@ page 70000 "API Card"
                     if Response <> '' then
                         FillAddInResponse();
                 end;*/
-                //trigger OnAction();
-                /*var
-                    cuAPI: Codeunit "Etax API";
-
-                begin
-                    cuAPI.CallAPI();
-                end;*/
                 /*var
                     Json: Codeunit "Json Tools";
                 begin
@@ -482,6 +475,7 @@ page 70000 "API Card"
                     HandleRequest: Codeunit "ETax API Test";
                     Setup: Record "API Setup";
                     RecAPIResponse: Record "API Response";
+                //Tools: Codeunit "Json Tools";
                 begin
                     Setup.Get();
                     Message(HandleRequest.SendRequest(Setup, response));
@@ -492,6 +486,7 @@ page 70000 "API Card"
                     RecAPIResponse.Method := Setup.Method;
                     RecAPIResponse.Response := Response;
                     RecAPIResponse.Insert(true);
+                    //Message('%1', format(Tools.API2Json('0')));
                 end;
             }
         }

@@ -16,7 +16,7 @@ table 60000 "API Body"
             DataClassification = ToBeClassified;
             TableRelation = "API Setup".idHeader;
         }*/
-        field(2; "Primary Key"; Code[10])
+        field(200000; "Primary Key"; Code[10])
         {
             Caption = 'Primary Key';
             DataClassification = ToBeClassified;

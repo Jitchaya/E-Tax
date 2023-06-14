@@ -19,29 +19,29 @@ table 70000 "API Line"
             DataClassification = ToBeClassified;
             TableRelation = "API Setup".idHeader;
         }*/
-        field(2; "Primary Key"; Code[10])
+        field(2000000; "Primary Key"; Code[10])
         {
             Caption = 'Primary Key';
             DataClassification = ToBeClassified;
             TableRelation = "API Setup"."Primary Key";
         }
-        field(3; idBody; Integer)
+        field(3000000; idBody; Integer)
         {
             Caption = 'idBody';
             DataClassification = ToBeClassified;
             TableRelation = "API Body".idBody;
         }
-        field(4; "L01-LINE_ID"; Text[250])
+        field(3; "L01-LINE_ID"; Text[250])
         {
             Caption = 'L01-LINE_ID';
             DataClassification = ToBeClassified;
         }
-        field(5; "L02-PRODUCT_ID"; Text[250])
+        field(6; "L02-PRODUCT_ID"; Text[250])
         {
             Caption = 'L02-PRODUCT_ID';
             DataClassification = ToBeClassified;
         }
-        field(6; "L03-PRODUCT_NAME"; Text[250])
+        field(5; "L03-PRODUCT_NAME"; Text[250])
         {
             Caption = 'L03-PRODUCT_NAME';
             DataClassification = ToBeClassified;

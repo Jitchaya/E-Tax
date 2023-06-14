@@ -17,7 +17,7 @@ page 80000 "PageLine"
                     ApplicationArea = Basic, Suite, Jobs;
                     Style = Strong;
                     ToolTip = 'Id Line';
-                    Visible = true;
+                    Visible = false;
                 }
                 field("L01-LINE_ID"; Rec."L01-LINE_ID")
                 {
