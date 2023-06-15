@@ -65,10 +65,10 @@ table 90000 "API Response"
 
     trigger OnInsert()
     var
-        APIResponse: Record "API Response";
+        tblAPIResponse: Record "API Response";
     begin
-        if APIResponse.FindLast() then
-            EntryNo := APIResponse.EntryNo + 1
+        if tblAPIResponse.FindLast() then
+            EntryNo := tblAPIResponse.EntryNo + 1
         /*else
             EntryNo := 1;
         "Authorization Type" := "Authorization Type"::"No Auth";*/

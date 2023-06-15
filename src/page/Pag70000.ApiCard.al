@@ -472,31 +472,31 @@ page 70000 "API Card"
                 Image = SendTo;
                 trigger OnAction()
                 var
-                    HandleRequest: Codeunit "ETax API Test";
-                    Setup: Record "API Setup";
-                    RecAPIResponse: Record "API Response";
-                //Tools: Codeunit "Json Tools";
+                    cuEtaxAPI: Codeunit "E-Tax API";
+                    tblAPISetup: Record "API Setup";
+                    tblAPIResponse: Record "API Response";
+                //cuTools: Codeunit "Json Tools";
                 begin
-                    Setup.Get();
-                    Message(HandleRequest.SendRequest(Setup, response));
-                    if Response <> '' then
-                        FillAddInResponse();
-                    RecAPIResponse.Init();
-                    RecAPIResponse.URL := Setup.URL;
-                    RecAPIResponse.Method := Setup.Method;
-                    RecAPIResponse.Response := Response;
-                    RecAPIResponse.Insert(true);
-                    //Message('%1', format(Tools.API2Json('0')));
+                    tblAPISetup.Get();
+                    Message(cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response));
+                    if m_Response <> '' then
+                        z_FillAddInResponse();
+                    tblAPIResponse.Init();
+                    tblAPIResponse.URL := tblAPISetup.URL;
+                    tblAPIResponse.Method := tblAPISetup.Method;
+                    tblAPIResponse.Response := m_Response;
+                    tblAPIResponse.Insert(true);
+                    //Message('%1', format(cuTools.z_API2Json('0')));
                 end;
             }
         }
     }
     var
-        Response: Text;
+        m_Response: Text;
     // RequestBody: Text;
     trigger OnAfterGetCurrRecord()
     begin
-        FillAddInResponse();
+        z_FillAddInResponse();
     end;
 
     /*trigger OnOpenPage()
@@ -516,9 +516,9 @@ page 70000 "API Card"
     begin
     end;*/
 
-    local procedure FillAddInResponse()
+    local procedure z_FillAddInResponse()
     begin
-        CurrPage.Response.SetContent(StrSubstNo('<textarea Id="TextArea" maxlength="%2" style="width:100%;height:100%;resize: none; font-family:"Segoe UI", "Segoe WP", Segoe, device-segoe, Tahoma, Helvetica, Arial, sans-serif !important; font-size: 10.5pt !important;" OnChange="window.parent.WebPageViewerHelper.TriggerCallback(document.getElementById(''TextArea'').value)">%1</textarea>', Response, MaxStrLen(Response)));
+        CurrPage.Response.SetContent(StrSubstNo('<textarea Id="TextArea" maxlength="%2" style="width:100%;height:100%;resize: none; font-family:"Segoe UI", "Segoe WP", Segoe, device-segoe, Tahoma, Helvetica, Arial, sans-serif !important; font-size: 10.5pt !important;" OnChange="window.parent.WebPageViewerHelper.TriggerCallback(document.getElementById(''TextArea'').value)">%1</textarea>', m_Response, MaxStrLen(m_Response)));
     end;
 
     /*procedure API2Json(id: Integer): JsonObject

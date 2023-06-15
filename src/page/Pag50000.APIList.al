@@ -7,7 +7,6 @@ page 50000 "API List"
     UsageCategory = Administration;
     SourceTable = "API Body";
     Editable = false;
-    // SourceTableView = WHERE("Document Type" = FILTER(Quote));
 
     layout
     {
