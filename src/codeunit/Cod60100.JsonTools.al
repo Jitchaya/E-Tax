@@ -135,9 +135,9 @@ codeunit 60100 "Json Tools"
         tblAPISetup.Get();
         JsonObj.Add('SellerTaxId', tblAPISetup.SellerTaxId);
         JsonObj.Add('SellerBranchId', tblAPISetup.SellerBranchId);
+        JsonObj.Add('APIKey', tblAPISetup.APIKey);
         JsonObj.Add('UserCode', tblAPISetup.UserCode);
         JsonObj.Add('AccessKey', tblAPISetup.AccessKey);
-        JsonObj.Add('APIKey', tblAPISetup.APIKey);
         JsonObj.Add('ServiceCode', tblAPISetup.ServiceCode);
         JsonObj.Add('TextContent', z_Tasks2Json(tblAPISetup."Primary Key"));
         JsonObj.Add('PDFContent', tblAPISetup.PDFContent);

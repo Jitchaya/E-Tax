@@ -53,7 +53,7 @@ table 50000 "API Setup"
             DataClassification = ToBeClassified;
             //InitValue = '00000';
         }
-        field(6; "APIKey"; Text[250])
+        field(6; "APIKey"; Text[2048])
         {
             Caption = 'APIKey';
             DataClassification = ToBeClassified;
