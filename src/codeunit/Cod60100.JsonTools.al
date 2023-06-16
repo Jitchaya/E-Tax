@@ -104,11 +104,14 @@ codeunit 60100 "Json Tools"
         i: Integer;
     begin
         gName := p_FieldRef.Name();
-        for i := 1 to Strlen(gName) do begin
-            if gName[i] < '0' then
+        /*for i := 1 to Strlen(gName) do begin
+            if gName[i] = ' ' then
+                //gName[i] := '_';
                 gName[i] := '_';
-        end;
-        exit(gName.Replace('__', '_').TrimEnd('_').TrimStart('_'));
+        end;*/
+
+        //exit(gName.Replace('__', '_').TrimEnd('_').TrimStart('_'));
+        exit(gName);
     end;
 
     local procedure z_AssignValueToFieldRef(var p_FieldRef: FieldRef; p_JsonKeyValue: JsonValue)

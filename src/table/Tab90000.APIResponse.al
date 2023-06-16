@@ -34,7 +34,7 @@ table 90000 "API Response"
             Caption = 'Content Format';
             DataClassification = ToBeClassified;
         }
-        field(7; Response; Text[2048])
+        field(7; Response; Text[2048]/*Blob*/)
         {
             trigger OnValidate()
             var
