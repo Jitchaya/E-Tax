@@ -115,6 +115,10 @@ table 50000 "API Setup"
         {
             DataClassification = ToBeClassified;
         }
+        field(18; PDFFile; Blob)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -110,6 +110,11 @@ page 60000 "Page Setup"
                     Caption = 'Content Format';
                     ApplicationArea = All;
                 }
+                field(PDFFile; Rec.PDFFile)
+                {
+                    Caption = 'PDFFile';
+                    ApplicationArea = All;
+                }
             }
         }
     }
@@ -124,6 +129,29 @@ page 60000 "Page Setup"
                 Image = AccountingPeriods;
                 RunObject = Page "API Card";
                 ToolTip = 'Set up API CARD';
+            }
+            action(Import)
+            {
+                ApplicationArea = all;
+                Caption = 'Import';
+                Image = AccountingPeriods;
+                //RunObject = Page "API Card";
+                ToolTip = 'Set up API CARD';
+                trigger OnAction()
+                var
+                    Input: InStream;
+                    Output: OutStream;
+                    FileName: Text;
+                begin
+                    if UploadIntoStream('Select File', '', '', FileName, Input) Then begin
+                        TempBlob.CreateOutStream(Output);
+                        CopyStream(Output, Input);
+                        Rec.CalcFields(PDFFile);
+                        Rec.PDFFile.CreateOutStream(Output);
+                        TempBlob.CreateInStream(Input);
+                        CopyStream(Output, Input);
+                    end
+                end;
             }
             /*action(ActionName)
             {
@@ -149,5 +177,5 @@ page 60000 "Page Setup"
     }
 
     var
-        myInt: Integer;
+        TempBlob: Codeunit "Temp Blob";
 }
