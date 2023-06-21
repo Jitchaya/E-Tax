@@ -73,9 +73,13 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                         //FillAddInResponse();
                         Message((StrSubstNo(m_Response, MaxStrLen(m_Response))));
                     tblAPIResponse.Init();
+                    tblAPIResponse.EntryNo := 0;
                     tblAPIResponse.URL := tblAPISetup.URL;
                     tblAPIResponse.Method := tblAPISetup.Method;
-                    tblAPIResponse.Response := m_Response;
+                    tblAPIResponse.SetResponseBlob(m_Response);
+                    tblAPIResponse.ETaxID := tblAPIBody.idBody;
+                    tblAPIResponse.InvoiceNumber := Rec."No.";
+                    //tblAPIResponse.Response := m_Response;
                     tblAPIResponse.Insert(true);
                     //Message(format(tblAPIBody.idBody));
                     Message('%1', format(cuTools.z_API2Json('0')));

@@ -14,6 +14,11 @@ page 50000 "API List"
         {
             repeater(Control1)
             {
+                field(idBody; Rec.idBody)
+                {
+                    Caption = 'Entry ID';
+                    ApplicationArea = All;
+                }
                 field("C01-SELLER_TAX_ID"; Rec."C01-SELLER_TAX_ID")
                 {
                     Caption = 'Seller Tax ID';

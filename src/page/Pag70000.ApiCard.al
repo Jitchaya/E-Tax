@@ -12,9 +12,9 @@ page 70000 "API Card"
     {
         area(Content)
         {
-            group(General)
+            group(C)
             {
-                Caption = 'API';
+                //Caption = 'API';
                 field("C01-SELLER_TAX_ID"; Rec."C01-SELLER_TAX_ID")
                 {
                     Caption = 'Seller Tax ID';
@@ -30,6 +30,10 @@ page 70000 "API Card"
                     Caption = 'File Name';
                     ApplicationArea = All;
                 }
+            }
+            group(H)
+            {
+                //Caption = 'API';
                 field("H01-DOCUMENT_TYPE_CODE"; Rec."H01-DOCUMENT_TYPE_CODE")
                 {
                     Caption = 'Document Type Code';
@@ -165,6 +169,9 @@ page 70000 "API Card"
                     Caption = 'PDF NAME';
                     ApplicationArea = All;
                 }
+            }
+            group(B)
+            {
                 field("B01-BUYER_ID"; Rec."B01-BUYER_ID")
                 {
                     Caption = 'BUYER ID';
@@ -190,7 +197,6 @@ page 70000 "API Card"
                     Caption = 'BUYER BRANCH ID';
                     ApplicationArea = All;
                 }
-
                 field("B06-BUYER_CONTACT_PERSON_NAME"; Rec."B06-BUYER_CONTACT_PERSON_NAME")
                 {
                     Caption = 'BUYER CONTACT PERSON NAME';
@@ -291,6 +297,9 @@ page 70000 "API Card"
                     Caption = 'BUYER COUNTRY ID';
                     ApplicationArea = All;
                 }
+            }
+            group(O)
+            {
                 field("O01-SHIP_TO_ID"; Rec."O01-SHIP_TO_ID")
                 {
                     Caption = 'SHIP TO ID';
@@ -434,7 +443,6 @@ page 70000 "API Card"
             }
         }
     }
-
     actions
     {
         area(Processing)
@@ -445,15 +453,7 @@ page 70000 "API Card"
                 PromotedCategory = Process;
                 Promoted = true;
                 PromotedIsBig = true;
-                Image = SendTo;
-                trigger OnAction()
-                var
-                    HandleRequest: Codeunit HandleRequest;
-                begin
-                    Message(HandleRequest.SendRequest(Rec, response));
-                    if Response <> '' then
-                        FillAddInResponse();
-                end;*/
+                Image = SendTo;*/
                 /*var
                     Json: Codeunit "Json Tools";
                 begin
@@ -475,16 +475,28 @@ page 70000 "API Card"
                     cuEtaxAPI: Codeunit "E-Tax API";
                     tblAPISetup: Record "API Setup";
                     tblAPIResponse: Record "API Response";
-                //cuTools: Codeunit "Json Tools";
+                    tblSalesInvoiceHeader: Record "Sales Invoice Header";
+                    cuTools: Codeunit "Json Tools";
                 begin
                     tblAPISetup.Get();
-                    Message(cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response));
+                    //cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response);
+                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response);
+                    Message(m_Status);
+                    m_JsonBody := format(cuTools.z_API2Json('0'));
+                    //Message(cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response));
                     if m_Response <> '' then
                         z_FillAddInResponse();
+                    //tblAPIResponse.SetResponseBlob(m_Response);
+                    //tblAPIResponse.GetResponseBlob();
                     tblAPIResponse.Init();
+                    tblAPIResponse.EntryNo := 0;
                     tblAPIResponse.URL := tblAPISetup.URL;
                     tblAPIResponse.Method := tblAPISetup.Method;
-                    tblAPIResponse.Response := m_Response;
+                    tblAPIResponse.SetResponseBlob(m_Response);
+                    tblAPIResponse.SetJsonBodyBlob(m_JsonBody);
+                    //tblAPIResponse.Response := m_Response;
+                    tblAPIResponse.ETaxID := Rec.idBody;
+                    tblAPIResponse.InvoiceNumber := tblSalesInvoiceHeader."No.";
                     tblAPIResponse.Insert(true);
                     //Message('%1', format(cuTools.z_API2Json('0')));
                 end;
@@ -493,23 +505,13 @@ page 70000 "API Card"
     }
     var
         m_Response: Text;
+        m_Status: Text;
+        m_JsonBody: Text;
     // RequestBody: Text;
     trigger OnAfterGetCurrRecord()
     begin
         z_FillAddInResponse();
     end;
-
-    /*trigger OnOpenPage()
-    var
-        RecPostman: Record "API Body";
-    begin
-        RecPostman.Reset();
-        RecPostman.SetRange(Saved, false);
-        RecPostman.DeleteAll();
-        if Rec.idBody = 0 then
-            Rec.Insert(true);
-    end;*/
-
     /*local procedure FillAddInRequest()
     var
         Json: Codeunit "Json Tools";

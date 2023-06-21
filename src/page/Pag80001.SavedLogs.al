@@ -7,6 +7,7 @@ page 80001 "Saved Logs"
     InsertAllowed = false;
     DeleteAllowed = false;
     ModifyAllowed = false;
+    Caption = 'Save Logs';
 
     layout
     {
@@ -25,15 +26,21 @@ page 80001 "Saved Logs"
                     ApplicationArea = All;
                     ToolTip = 'Method';
                 }
+                field(ETaxID; Rec.ETaxID)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Entry Number';
+                }
                 field(URL; Rec.URL)
                 {
                     ApplicationArea = All;
                     ToolTip = 'URL';
                 }
-                field(Response; Rec.Response)
+                field(Response; m_Response)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Response';
+
                 }
                 field("Authorization Type"; Rec."Authorization Type")
                 {
@@ -45,10 +52,20 @@ page 80001 "Saved Logs"
                     ApplicationArea = All;
                     ToolTip = 'Content-Type';
                 }
+                field(InvoiceNumber; Rec.InvoiceNumber)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Invoice Number';
+                }
                 field(Output; Rec.Output)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Output field';
+                }
+                field(JsonBody; m_JsonBody)
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'JsonBody field';
                 }
             }
         }
@@ -70,4 +87,14 @@ page 80001 "Saved Logs"
             }
         }
     }
+    var
+        m_Response: Text;
+        m_JsonBody: Text;
+
+    trigger OnAfterGetRecord()
+
+    begin
+        m_Response := Rec.GetResponseBlob();
+        m_JsonBody := Rec.GetJsonBodyBlob();
+    end;
 }

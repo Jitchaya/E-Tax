@@ -6,6 +6,7 @@ table 90000 "API Response"
         field(1; EntryNo; Integer)
         {
             DataClassification = ToBeClassified;
+            AutoIncrement = true;
         }
         field(2; Method; Enum Methods)
         {
@@ -34,14 +35,14 @@ table 90000 "API Response"
             Caption = 'Content Format';
             DataClassification = ToBeClassified;
         }
-        field(7; Response; Text[2048]/*Blob*/)
+        field(7; Response; Blob)
         {
-            trigger OnValidate()
+            /*trigger OnValidate()
             var
                 myInt: Integer;
             begin
 
-            end;
+            end;*/
         }
         field(8; Saved; Boolean)
         {
@@ -51,6 +52,27 @@ table 90000 "API Response"
         {
             DataClassification = ToBeClassified;
         }
+        field(10; ETaxID; Integer)
+        {
+            trigger OnValidate()
+            var
+                myInt: Integer;
+            begin
+
+            end;
+        }
+        field(11; InvoiceNumber; Code[10])
+        {
+            trigger OnValidate()
+            var
+                myInt: Integer;
+            begin
+
+            end;
+        }
+        field(12; JsonBody; Blob)
+        {
+        }
     }
     keys
     {
@@ -59,7 +81,6 @@ table 90000 "API Response"
             Clustered = true;
         }
     }
-
     var
         myInt: Integer;
 
@@ -67,9 +88,9 @@ table 90000 "API Response"
     var
         tblAPIResponse: Record "API Response";
     begin
-        if tblAPIResponse.FindLast() then
+        /*if tblAPIResponse.FindLast() then
             EntryNo := tblAPIResponse.EntryNo + 1
-        /*else
+        else
             EntryNo := 1;
         "Authorization Type" := "Authorization Type"::"No Auth";*/
     end;
@@ -89,4 +110,42 @@ table 90000 "API Response"
 
     end;
 
+    procedure SetResponseBlob(p_Response: Text)
+    var
+        OutStream: OutStream;
+    begin
+        Clear(Response);
+        Response.CreateOutStream(OutStream, TEXTENCODING::UTF8);
+        OutStream.WriteText(p_Response);
+        //Modify();
+    end;
+
+    procedure GetResponseBlob() m_Response: Text
+    var
+        TypeHelper: Codeunit "Type Helper";
+        InStream: InStream;
+    begin
+        CalcFields("Response");
+        Response.CreateInStream(InStream, TEXTENCODING::UTF8);
+        exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName(Response)));
+    end;
+
+    procedure SetJsonBodyBlob(p_JsonBody: Text)
+    var
+        OutStream: OutStream;
+    begin
+        Clear(JsonBody);
+        JsonBody.CreateOutStream(OutStream, TEXTENCODING::UTF8);
+        OutStream.WriteText(p_JsonBody);
+    end;
+
+    procedure GetJsonBodyBlob() m_JsonBody: Text
+    var
+        TypeHelper: Codeunit "Type Helper";
+        InStream: InStream;
+    begin
+        CalcFields(JsonBody);
+        JsonBody.CreateInStream(InStream, TEXTENCODING::UTF8);
+        exit(TypeHelper.TryReadAsTextWithSepAndFieldErrMsg(InStream, TypeHelper.LFSeparator(), FieldName(JsonBody)));
+    end;
 }
