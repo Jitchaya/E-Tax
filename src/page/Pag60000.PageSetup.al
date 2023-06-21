@@ -126,7 +126,7 @@ page 60000 "Page Setup"
             {
                 ApplicationArea = Basic, Suite;
                 Caption = 'E-TAX';
-                Image = AccountingPeriods;
+                Image = Card;
                 RunObject = Page "API Card";
                 ToolTip = 'Set up API CARD';
             }
@@ -134,7 +134,7 @@ page 60000 "Page Setup"
             {
                 ApplicationArea = all;
                 Caption = 'Import';
-                Image = AccountingPeriods;
+                Image = PutAway;
                 //RunObject = Page "API Card";
                 ToolTip = 'Set up API CARD';
                 trigger OnAction()

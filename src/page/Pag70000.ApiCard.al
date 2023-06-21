@@ -487,7 +487,6 @@ page 70000 "API Card"
                     if m_Response <> '' then
                         z_FillAddInResponse();
                     //tblAPIResponse.SetResponseBlob(m_Response);
-                    //tblAPIResponse.GetResponseBlob();
                     tblAPIResponse.Init();
                     tblAPIResponse.EntryNo := 0;
                     tblAPIResponse.URL := tblAPISetup.URL;
@@ -496,7 +495,7 @@ page 70000 "API Card"
                     tblAPIResponse.SetJsonBodyBlob(m_JsonBody);
                     //tblAPIResponse.Response := m_Response;
                     tblAPIResponse.ETaxID := Rec.idBody;
-                    tblAPIResponse.InvoiceNumber := tblSalesInvoiceHeader."No.";
+                    tblAPIResponse.InvoiceNumber := Rec."B01-BUYER_ID";
                     tblAPIResponse.Insert(true);
                     //Message('%1', format(cuTools.z_API2Json('0')));
                 end;

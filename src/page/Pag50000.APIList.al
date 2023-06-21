@@ -18,6 +18,7 @@ page 50000 "API List"
                 {
                     Caption = 'Entry ID';
                     ApplicationArea = All;
+                    //Visible = false;
                 }
                 field("C01-SELLER_TAX_ID"; Rec."C01-SELLER_TAX_ID")
                 {

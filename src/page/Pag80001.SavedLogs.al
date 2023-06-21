@@ -77,13 +77,23 @@ page 80001 "Saved Logs"
             action(ActionName)
             {
                 ApplicationArea = All;
-
+                Image = Delete;
+                ToolTip = 'Delete alll Save logs';
                 trigger OnAction();
                 begin
                     Clear(Rec);
                     Rec.DeleteAll();
                     //CurrPage.Update();
                 end;
+            }
+            action("Sale Invoice")
+            {
+                ApplicationArea = Basic, Suite;
+                Caption = 'Show Posted Sale Invoice';
+                Image = ShowList;
+                RunObject = Page "Posted Sales Invoice";
+                RunPageLink = "No." = field(InvoiceNumber);
+                ToolTip = 'Show Posted Sales Invoice CARD';
             }
         }
     }

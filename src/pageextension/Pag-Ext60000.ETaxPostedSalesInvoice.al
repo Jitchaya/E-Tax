@@ -68,7 +68,10 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                         until tblSaleInvoiceLine.Next() = 0;
                     Message(format(tblAPILine.idBody));
                     tblAPISetup.Get();
-                    Message(cuETaxAPI.z_SendRequest(tblAPISetup, m_Response));
+                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response);
+                    Message(m_Status);
+                    m_JsonBody := format(cuTools.z_API2Json('0'));
+                    //Message(cuETaxAPI.z_SendRequest(tblAPISetup, m_Response));
                     if m_Response <> '' then
                         //FillAddInResponse();
                         Message((StrSubstNo(m_Response, MaxStrLen(m_Response))));
@@ -77,6 +80,7 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                     tblAPIResponse.URL := tblAPISetup.URL;
                     tblAPIResponse.Method := tblAPISetup.Method;
                     tblAPIResponse.SetResponseBlob(m_Response);
+                    tblAPIResponse.SetJsonBodyBlob(m_JsonBody);
                     tblAPIResponse.ETaxID := tblAPIBody.idBody;
                     tblAPIResponse.InvoiceNumber := Rec."No.";
                     //tblAPIResponse.Response := m_Response;
@@ -89,7 +93,9 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
     }
     var
         m_Response: Text;
-    // RequestBody: Text;
+        m_Status: Text;
+        m_JsonBody: Text;
+
     trigger OnAfterGetCurrRecord()
     begin
         //FillAddInResponse();
