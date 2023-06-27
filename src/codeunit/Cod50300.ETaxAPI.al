@@ -82,6 +82,5 @@ codeunit 50300 "E-Tax API"
             else
                 Error('Development is Pending for the Selected Authorization Type');
         end;
-
     end;
 }

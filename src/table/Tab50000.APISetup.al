@@ -117,10 +117,10 @@ table 50000 "API Setup"
         }
         field(18; PDFFile; Blob)
         {
-            DataClassification = ToBeClassified;
+            //DataClassification = ToBeClassified;
+            Subtype = UserDefined;
         }
     }
-
     keys
     {
         key(PK; "Primary Key")
@@ -128,5 +128,4 @@ table 50000 "API Setup"
             Clustered = true;
         }
     }
-
 }

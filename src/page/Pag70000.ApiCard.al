@@ -500,6 +500,20 @@ page 70000 "API Card"
                     //Message('%1', format(cuTools.z_API2Json('0')));
                 end;
             }
+            action(Export)
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedIsBig = true;
+                PromotedCategory = Category4;
+                Image = ExportElectronicDocument;
+                trigger OnAction()
+                var
+                    ExportExample: Codeunit TextFile;
+                begin
+                    ExportExample.CreateTextFile(Rec);
+                end;
+            }
         }
     }
     var

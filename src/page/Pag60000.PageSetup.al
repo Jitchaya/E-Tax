@@ -153,29 +153,50 @@ page 60000 "Page Setup"
                     end
                 end;
             }
-            /*action(ActionName)
+            action(Show)
             {
-                ApplicationArea = All;
-
+                ApplicationArea = all;
+                Caption = 'Show';
+                Image = PutAway;
+                ToolTip = 'Show text file';
                 trigger OnAction()
+                var
+                    Input: InStream;
+                    Output: OutStream;
+                    FileName: Text;
+                    BI: BigInteger;
                 begin
-
+                    if UploadIntoStream('Select File', '', '', FileName, Input) Then begin
+                        BI := Persistent.Create();
+                        Persistent.CopyFromInStream(BI, Input);
+                        Message('Number = %1', BI);
+                    end
                 end;
-            }*/
+            }
+            action(what)
+            {
+                Caption = 'From Persistent';
+                ApplicationArea = all;
+                trigger OnAction()
+                var
+                    Input: InStream;
+                    Output: OutStream;
+                    FileName: Text;
+                    BI: BigInteger;
+                begin
+                    Rec.CalcFields(PDFFile);
+                    Rec.PDFFile.CreateOutStream(Output);
+                    Persistent.CopyToOutStream(1, Output);
+                end;
+            }
         }
         area(Promoted)
         {
-            /*group(Category_Category4)
-           {
-               Caption = 'API Card', Comment = 'Generated from the PromotedActionCategories property index 3.';
-
-               actionref("Customer Posting Groups_Promoted"; "API Card")
-               {
-               }
-           }*/
         }
     }
 
     var
         TempBlob: Codeunit "Temp Blob";
+        BlobList: Codeunit "Temp Blob List";
+        Persistent: Codeunit "Persistent Blob";
 }
