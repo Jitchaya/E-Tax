@@ -80,6 +80,10 @@ codeunit 70100 "TextFile"
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."F46-TAX_BASIS_TOTAL_AMOUNT", tblAPIBody."F47-TAX_BASIS_TOTAL_CURRENCY_CODE", tblAPIBody."F48-TAX_TOTAL_AMOUNT"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."F49-TAX_TOTAL_CURRENCY_CODE", tblAPIBody."F50-GRAND_TOTAL_AMOUNT", tblAPIBody."F51-GRAND_TOTAL_CURRENCY_CODE"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."F52-TERM_PAYMENT", tblAPIBody."F53-WITHHOLDINGTAX_TYPE1", tblAPIBody."F54-WITHHOLDINGTAX_DESCRIPTION1"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."F55-WITHHOLDINGTAX_RATE1", tblAPIBody."F56-WITHHOLDINGTAX_BASIS_AMOUNT1", tblAPIBody."F57-WITHHOLDINGTAX_TAX_AMOUNT1"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."F58-WITHHOLDINGTAX_TYPE2", tblAPIBody."F59-WITHHOLDINGTAX_DESCRIPTION2", tblAPIBody."F60-WITHHOLDINGTAX_RATE2"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."F61-WITHHOLDINGTAX_BASIS_AMOUNT2", tblAPIBody."F62-WITHHOLDINGTAX_TAX_AMOUNT2", tblAPIBody."F63-WITHHOLDINGTAX_TYPE3"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."B04-BUYER_TAX_ID", tblAPIBody."B05-BUYER_BRANCH_ID", tblAPIBody."B06-BUYER_CONTACT_PERSON_NAME"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."B04-BUYER_TAX_ID", tblAPIBody."B05-BUYER_BRANCH_ID", tblAPIBody."B06-BUYER_CONTACT_PERSON_NAME"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."B04-BUYER_TAX_ID", tblAPIBody."B05-BUYER_BRANCH_ID", tblAPIBody."B06-BUYER_CONTACT_PERSON_NAME"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."B04-BUYER_TAX_ID", tblAPIBody."B05-BUYER_BRANCH_ID", tblAPIBody."B06-BUYER_CONTACT_PERSON_NAME"));
