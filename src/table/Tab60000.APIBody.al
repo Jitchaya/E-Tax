@@ -655,267 +655,298 @@ table 60000 "API Body"
         }
         field(111; "F28-ALLOWANCE_CHARGE_IND"; Text[5])
         {
+            //ตัวบอกส่วนลดหรือค่าธรรมเนียม
             Caption = 'F28-ALLOWANCE_CHARGE_IND';
             DataClassification = ToBeClassified;
         }
         field(112; "F29-ALLOWANCE_ACTUAL_AMOUNT"; Text[16])
         {
+            //มูลค่าส่วนลดหรือค่าธรรมเนียม
             Caption = 'F29-ALLOWANCE_ACTUAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
         field(113; "F30-ALLOWANCE_ACTUAL_CURRENCY_CODE"; Code[3])
         {
-            //
+            //มูลค่าส่วนลดหรือค่าธรรมเนียม
             Caption = 'F30-ALLOWANCE_ACTUAL_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
-        field(114; "F31-ALLOWANCE_REASON_CODE"; Text[250])
+        field(114; "F31-ALLOWANCE_REASON_CODE"; Text[16])
         {
+            //รหัสเหตุผลในการคิดส่วนลดหรือค่าธรรมเนียม
             Caption = 'F31-ALLOWANCE_REASON_CODE';
             DataClassification = ToBeClassified;
         }
-        field(115; "F32-ALLOWANCE_REASON"; Text[250])
+        field(115; "F32-ALLOWANCE_REASON"; Text[256])
         {
+            //เหตุผลในการคิดส่วนลดหรือค่าธรรมเนียม
             Caption = 'F32-ALLOWANCE_REASON';
             DataClassification = ToBeClassified;
         }
-        field(116; "F33-PAYMENT_TYPE_CODE"; Text[250])
+        field(116; "F33-PAYMENT_TYPE_CODE"; Text[16])
         {
+            //รหัสประเภทส่วนลดหรือค่าธรรมเนียม
             Caption = 'F33-PAYMENT_TYPE_CODE';
             DataClassification = ToBeClassified;
         }
-        field(117; "F34-PAYMENT_DESCRIPTION"; Text[250])
+        field(117; "F34-PAYMENT_DESCRIPTION"; Text[256])
         {
+            //รายละเอียดเงื่อนไขการชำระเงิน
             Caption = 'F34-PAYMENT_DESCRIPTION';
             DataClassification = ToBeClassified;
         }
-        field(118; "F35-PAYMENT_DUE_DTM"; Text[250])
+        field(118; "F35-PAYMENT_DUE_DTM"; Text[19])
         {
+            //**Type Date Time size 19** วันครบกำหนดชำระเงิน
             Caption = 'F35-PAYMENT_DUE_DTM';
             DataClassification = ToBeClassified;
         }
         field(119; "F36-ORIGINAL_TOTAL_AMOUNT"; Text[250])
         {
+            //**Type Number size 16** รวมมูลค่าตามเอกสารเดิม
             Caption = 'F36-ORIGINAL_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(120; "F37-ORIGINAL_TOTAL_CURRENCY_CODE"; Text[250])
+        field(120; "F37-ORIGINAL_TOTAL_CURRENCY_CODE"; Code[3])
         {
+            //รวมมูลค่าตามเอกสารเดิม
             Caption = 'F37-ORIGINAL_TOTAL_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
         field(121; "F38-LINE_TOTAL_AMOUNT"; Text[250])
         {
+            //**Type Number size 16** รวมมูลค่าตามรายการ/มูลค่าที่ถูกต้อง
             Caption = 'F38-LINE_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(122; "F39-LINE_TOTAL_CURRENCY_CODE"; Text[250])
+        field(122; "F39-LINE_TOTAL_CURRENCY_CODE"; Code[3])
         {
+            //รวมมูลค่าตามรายการ/มูลค่าที่ถูกต้อง
             Caption = 'F39-LINE_TOTAL_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
         field(123; "F40-ADJUSTED_INFORMATION_AMOUNT"; Text[250])
         {
+            //**Type Number size 16** มูลค่าผลต่าง
             Caption = 'F40-ADJUSTED_INFORMATION_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(124; "F41-ADJUSTED_INFORMATION_CURRENCY_CODE"; Text[250])
+        field(124; "F41-ADJUSTED_INFORMATION_CURRENCY_CODE"; Code[3])
         {
+            //มูลค่าผลต่าง
             Caption = 'F41-ADJUSTED_INFORMATION_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
         field(125; "F42-ALLOWANCE_TOTAL_AMOUNT"; Text[250])
         {
+            //**Type Number size 16** ส่วนลดทั้งหมด
             Caption = 'F42-ALLOWANCE_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(126; "F43-ALLOWANCE_TOTAL_CURRENCY_CODE"; Text[250])
+        field(126; "F43-ALLOWANCE_TOTAL_CURRENCY_CODE"; Code[3])
         {
+            //ส่วนลดทั้งหมด
             Caption = 'F43-ALLOWANCE_TOTAL_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
         field(127; "F44-CHARGE_TOTAL_AMOUNT"; Text[250])
         {
+            //**Type Number size 16** ค่าธรรมเนียมทั้งหมด
             Caption = 'F44-CHARGE_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(128; "F45-CHARGE_TOTAL_CURRENCY_CODE"; Text[250])
+        field(128; "F45-CHARGE_TOTAL_CURRENCY_CODE"; Code[3])
         {
             Caption = 'F45-CHARGE_TOTAL_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
         field(129; "F46-TAX_BASIS_TOTAL_AMOUNT"; Text[250])
         {
+            //**Type Number size 16** มูลค่าที่นำมาคิดภาษีมูลค่าเพิ่ม
             Caption = 'F46-TAX_BASIS_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(130; "F47-TAX_BASIS_TOTAL_CURRENCY_CODE"; Text[250])
+        field(130; "F47-TAX_BASIS_TOTAL_CURRENCY_CODE"; Code[3])
         {
             Caption = 'F47-TAX_BASIS_TOTAL_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
         field(131; "F48-TAX_TOTAL_AMOUNT"; Text[250])
         {
+            //**Type Number size 16** จำนวนภาษีมูลค่าเพิ่ม
             Caption = 'F48-TAX_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(132; "F49-TAX_TOTAL_CURRENCY_CODE"; Text[250])
+        field(132; "F49-TAX_TOTAL_CURRENCY_CODE"; Code[3])
         {
             Caption = 'F49-TAX_TOTAL_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
         field(133; "F50-GRAND_TOTAL_AMOUNT"; Text[250])
         {
+            //**Type Number size 16** จำนวนเงินรวม (รวมภาษีมูลค่าเพิ่ม)
             Caption = 'F50-GRAND_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(134; "F51-GRAND_TOTAL_CURRENCY_CODE"; Text[250])
+        field(134; "F51-GRAND_TOTAL_CURRENCY_CODE"; Code[3])
         {
             Caption = 'F51-GRAND_TOTAL_CURRENCY_CODE';
             DataClassification = ToBeClassified;
         }
-        field(135; "F52-TERM_PAYMENT"; Text[250])
+        field(135; "F52-TERM_PAYMENT"; Text[256])
         {
+            //เงื่อนไขการชำระเงิน (วัน)
             Caption = 'F52-TERM_PAYMENT';
             DataClassification = ToBeClassified;
         }
-        field(136; "F53-WITHHOLDINGTAX_TYPE1"; Text[250])
+        field(136; "F53-WITHHOLDINGTAX_TYPE1"; Text[20])
         {
+            //ประเภทแบบภาษีเงินหัก ณ ที่จ่าย
             Caption = 'F53-WITHHOLDINGTAX_TYPE1';
             DataClassification = ToBeClassified;
         }
-        field(137; "F54-WITHHOLDINGTAX_DESCRIPTION1"; Text[250])
+        field(137; "F54-WITHHOLDINGTAX_DESCRIPTION1"; Text[256])
         {
+            //ประเภทเงินได้
             Caption = 'F54-WITHHOLDINGTAX_DESCRIPTION1';
             DataClassification = ToBeClassified;
         }
-        field(138; "F55-WITHHOLDINGTAX_RATE1"; Text[250])
+        field(138; "F55-WITHHOLDINGTAX_RATE1"; Text[5])
         {
+            //อัตราภาษีเงินได้หัก ณ ที่จ่าย
             Caption = 'F55-WITHHOLDINGTAX_RATE1';
             DataClassification = ToBeClassified;
         }
-        field(139; "F56-WITHHOLDINGTAX_BASIS_AMOUNT1"; Text[250])
+        field(139; "F56-WITHHOLDINGTAX_BASIS_AMOUNT1"; Text[48])
         {
+            //มูลค่าที่นำมาคิดภาษีเงินได้หัก ณ ที่จ่าย
             Caption = 'F56-WITHHOLDINGTAX_BASIS_AMOUNT1';
             DataClassification = ToBeClassified;
         }
-        field(140; "F57-WITHHOLDINGTAX_TAX_AMOUNT1"; Text[250])
+        field(140; "F57-WITHHOLDINGTAX_TAX_AMOUNT1"; Text[48])
         {
+            //มูลค่าภาษีเงินได้หัก ณ ที่จ่าย
             Caption = 'F57-WITHHOLDINGTAX_TAX_AMOUNT1';
             DataClassification = ToBeClassified;
         }
-        field(141; "F58-WITHHOLDINGTAX_TYPE2"; Text[250])
+        field(141; "F58-WITHHOLDINGTAX_TYPE2"; Text[20])
         {
+            //ประเภทแบบภาษีเงินได้หัก ณ ที่จ่าย
             Caption = 'F58-WITHHOLDINGTAX_TYPE2';
             DataClassification = ToBeClassified;
         }
-        field(142; "F59-WITHHOLDINGTAX_DESCRIPTION2"; Text[250])
+        field(142; "F59-WITHHOLDINGTAX_DESCRIPTION2"; Text[256])
         {
+            //ประเภทเงินได้
             Caption = 'F59-WITHHOLDINGTAX_DESCRIPTION2';
             DataClassification = ToBeClassified;
         }
-        field(143; "F60-WITHHOLDINGTAX_RATE2"; Text[250])
+        field(143; "F60-WITHHOLDINGTAX_RATE2"; Text[5])
         {
             Caption = 'F60-WITHHOLDINGTAX_RATE2';
             DataClassification = ToBeClassified;
         }
-        field(144; "F61-WITHHOLDINGTAX_BASIS_AMOUNT2"; Text[250])
+        field(144; "F61-WITHHOLDINGTAX_BASIS_AMOUNT2"; Text[48])
         {
             Caption = 'F61-WITHHOLDINGTAX_BASIS_AMOUNT2';
             DataClassification = ToBeClassified;
         }
-        field(145; "F62-WITHHOLDINGTAX_TAX_AMOUNT2"; Text[250])
+        field(145; "F62-WITHHOLDINGTAX_TAX_AMOUNT2"; Text[48])
         {
             Caption = 'F62-WITHHOLDINGTAX_TAX_AMOUNT2';
             DataClassification = ToBeClassified;
         }
-        field(146; "F63-WITHHOLDINGTAX_TYPE3"; Text[250])
+        field(146; "F63-WITHHOLDINGTAX_TYPE3"; Text[20])
         {
             Caption = 'F63-WITHHOLDINGTAX_TYPE3';
             DataClassification = ToBeClassified;
         }
-        field(147; "F64-WITHHOLDINGTAX_DESCRIPTION3"; Text[250])
+        field(147; "F64-WITHHOLDINGTAX_DESCRIPTION3"; Text[256])
         {
             Caption = 'F64-WITHHOLDINGTAX_DESCRIPTION3';
             DataClassification = ToBeClassified;
         }
-        field(148; "F65-WITHHOLDINGTAX_RATE3"; Text[250])
+        field(148; "F65-WITHHOLDINGTAX_RATE3"; Text[5])
         {
             Caption = 'F65-WITHHOLDINGTAX_RATE3';
             DataClassification = ToBeClassified;
         }
-        field(149; "F66-WITHHOLDINGTAX_BASIS_AMOUNT3"; Text[250])
+        field(149; "F66-WITHHOLDINGTAX_BASIS_AMOUNT3"; Text[48])
         {
             Caption = 'F66-WITHHOLDINGTAX_BASIS_AMOUNT3';
             DataClassification = ToBeClassified;
         }
-        field(150; "F67-WITHHOLDINGTAX_TAX_AMOUNT3"; Text[250])
+        field(150; "F67-WITHHOLDINGTAX_TAX_AMOUNT3"; Text[48])
         {
             Caption = 'F67-WITHHOLDINGTAX_TAX_AMOUNT3';
             DataClassification = ToBeClassified;
         }
-        field(151; "F68-WITHHOLDINGTAX_TOTAL_AMOUNT"; Text[250])
+        field(151; "F68-WITHHOLDINGTAX_TOTAL_AMOUNT"; Text[48])
         {
+            //**Type Number size 16**
             Caption = 'F68-WITHHOLDINGTAX_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(152; "F69-ACTUAL_PAYMENT_TOTAL_AMOUNT"; Text[250])
+        field(152; "F69-ACTUAL_PAYMENT_TOTAL_AMOUNT"; Text[48])
         {
+            //**Type Number size 16**
             Caption = 'F69-ACTUAL_PAYMENT_TOTAL_AMOUNT';
             DataClassification = ToBeClassified;
         }
-        field(153; "F70-DOCUMENT_REMARK1"; Text[250])
+        field(153; "F70-DOCUMENT_REMARK1"; Text[500])
         {
+            //หมายเหตุท้ายเอกสาร
             Caption = 'F70-DOCUMENT_REMARK1';
             DataClassification = ToBeClassified;
         }
-        field(154; "F71-DOCUMENT_REMARK2"; Text[250])
+        field(154; "F71-DOCUMENT_REMARK2"; Text[500])
         {
             Caption = 'F71-DOCUMENT_REMARK2';
             DataClassification = ToBeClassified;
         }
-        field(155; "F72-DOCUMENT_REMARK3"; Text[250])
+        field(155; "F72-DOCUMENT_REMARK3"; Text[500])
         {
             Caption = 'F72-DOCUMENT_REMARK3';
             DataClassification = ToBeClassified;
         }
-        field(156; "F73-DOCUMENT_REMARK4"; Text[250])
+        field(156; "F73-DOCUMENT_REMARK4"; Text[500])
         {
             Caption = 'F73-DOCUMENT_REMARK4';
             DataClassification = ToBeClassified;
         }
-        field(157; "F74-DOCUMENT_REMARK5"; Text[250])
+        field(157; "F74-DOCUMENT_REMARK5"; Text[500])
         {
             Caption = 'F74-DOCUMENT_REMARK5';
             DataClassification = ToBeClassified;
         }
-        field(158; "F75-DOCUMENT_REMARK6"; Text[250])
+        field(158; "F75-DOCUMENT_REMARK6"; Text[500])
         {
             Caption = 'F75-DOCUMENT_REMARK6';
             DataClassification = ToBeClassified;
         }
-        field(159; "F76-DOCUMENT_REMARK7"; Text[250])
+        field(159; "F76-DOCUMENT_REMARK7"; Text[500])
         {
             Caption = 'F76-DOCUMENT_REMARK7';
             DataClassification = ToBeClassified;
         }
-        field(160; "F77-DOCUMENT_REMARK8"; Text[250])
+        field(160; "F77-DOCUMENT_REMARK8"; Text[500])
         {
             Caption = 'F77-DOCUMENT_REMARK8';
             DataClassification = ToBeClassified;
         }
-        field(161; "F78-DOCUMENT_REMARK9"; Text[250])
+        field(161; "F78-DOCUMENT_REMARK9"; Text[500])
         {
             Caption = 'F78-DOCUMENT_REMARK9';
             DataClassification = ToBeClassified;
         }
-        field(162; "F79-DOCUMENT_REMARK10"; Text[250])
+        field(162; "F79-DOCUMENT_REMARK10"; Text[500])
         {
             Caption = 'F79-DOCUMENT_REMARK10';
             DataClassification = ToBeClassified;
         }
         field(163; "T01-TOTAL_DOCUMENT_COUNT"; Text[250])
         {
+            //**Type Number size 5** จำนวนเอกสารทั้งหมด
             Caption = 'T01-TOTAL_DOCUMENT_COUNT';
             DataClassification = ToBeClassified;
         }

@@ -71,7 +71,24 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                     if tblSaleInvoiceLine.FindSet() then
                         repeat
                             //tblAPILine.TransferFields(tblSaleInvoiceLine);
+                            tblAPILine."L01-LINE_ID" := '1';
                             tblAPILine."L02-PRODUCT_ID" := tblSaleInvoiceLine."No.";
+                            tblAPILine."L03-PRODUCT_NAME" := tblSaleInvoiceLine.Description;
+                            tblAPILine."L10-PRODUCT_CHARGE_AMOUNT" := '7777';
+                            tblAPILine."L11-PRODUCT_CHARGE_CURRENCY_CODE" := 'THB';
+                            tblAPILine."L17-PRODUCT_QUANTITY" := '1';
+                            tblAPILine."L18-PRODUCT_UNIT_CODE" := tblSaleInvoiceLine."Unit of Measure Code";
+                            tblAPILine."L19-PRODUCT_QUANTITY_PER_UNIT" := '1';
+                            tblAPILine."L20-LINE_TAX_TYPE_CODE" := 'VAT';
+                            tblAPILine."L21-LINE_TAX_CAL_RATE" := '7';
+                            tblAPILine."L22-LINE_BASIS_AMOUNT" := '1922.40';
+                            tblAPILine."L23-LINE_BASIS_CURRENCY_CODE" := 'THB';
+                            tblAPILine."L24-LINE_TAX_CAL_AMOUNT" := '134.57';
+                            tblAPILine."L25-LINE_TAX_CAL_CURRENCY_CODE" := 'THB';
+                            tblAPILine."L33-LINE_NET_TOTAL_AMOUNT" := '1922.40';
+                            tblAPILine."L34-LINE_NET_TOTAL_CURRENCY_CODE" := 'THB';
+                            tblAPILine."L35-LINE_NET_INCLUDE_TAX_TOTAL_AMOUNT" := '134.57';
+                            tblAPILine."L36-LINE_NET_INCLUDE_TAX_TOTAL_CURRENCY_CODE" := 'THB';
                             tblAPILine.idBody := tblAPIBody.idBody;
                             tblAPILine.idLine := 0;
                             tblAPILine.Insert();

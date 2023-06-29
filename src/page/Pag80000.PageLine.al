@@ -22,105 +22,105 @@ page 80000 "PageLine"
                 field("L01-LINE_ID"; Rec."L01-LINE_ID")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L01-LINE_ID';
                     Visible = true;
                 }
                 field("L02-PRODUCT_ID"; Rec."L02-PRODUCT_ID")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L02-PRODUCT_ID';
                     Visible = true;
                 }
                 field("L03-PRODUCT_NAME"; Rec."L03-PRODUCT_NAME")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L03-PRODUCT_NAME';
                     Visible = true;
                 }
                 field("L04-PRODUCT_DESC"; Rec."L04-PRODUCT_DESC")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L04-PRODUCT_DESC';
                     Visible = true;
                 }
                 field("L05-PRODUCT_BATCH_ID"; Rec."L05-PRODUCT_BATCH_ID")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L05-PRODUCT_BATCH_ID';
                     Visible = true;
                 }
                 field("L06-PRODUCT_EXPIRE_DTM"; Rec."L06-PRODUCT_EXPIRE_DTM")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L06-PRODUCT_EXPIRE_DTM';
                     Visible = true;
                 }
                 field("L07-PRODUCT_CLASS_CODE"; Rec."L07-PRODUCT_CLASS_CODE")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L07-PRODUCT_CLASS_CODE';
                     Visible = true;
                 }
                 field("L08-PRODUCT_CLASS_NAME"; Rec."L08-PRODUCT_CLASS_NAME")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L08-PRODUCT_CLASS_NAME';
                     Visible = true;
                 }
                 field("L09-PRODUCT_ORIGIN_COUNTRY_ID"; Rec."L09-PRODUCT_ORIGIN_COUNTRY_ID")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L09-PRODUCT_ORIGIN_COUNTRY_ID';
                     Visible = true;
                 }
                 field("L10-PRODUCT_CHARGE_AMOUNT"; Rec."L10-PRODUCT_CHARGE_AMOUNT")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L10-PRODUCT_CHARGE_AMOUNT';
                     Visible = true;
                 }
                 field("L11-PRODUCT_CHARGE_CURRENCY_CODE"; Rec."L11-PRODUCT_CHARGE_CURRENCY_CODE")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L11-PRODUCT_CHARGE_CURRENCY_CODE';
                     Visible = true;
                 }
                 field("L12-PRODUCT_ALLOWANCE_CHARGE_IND"; Rec."L12-PRODUCT_ALLOWANCE_CHARGE_IND")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L12-PRODUCT_ALLOWANCE_CHARGE_IND';
                     Visible = true;
                 }
                 field("L13-PRODUCT_ALLOWANCE_ACTUAL_AMOUNT"; Rec."L13-PRODUCT_ALLOWANCE_ACTUAL_AMOUNT")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L13-PRODUCT_ALLOWANCE_ACTUAL_AMOUNT';
                     Visible = true;
                 }
                 field("L14-PRODUCT_ALLOWANCE_ACTUAL_CURRENCY_CODE"; Rec."L14-PRODUCT_ALLOWANCE_ACTUAL_CURRENCY_CODE")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L14-PRODUCT_ALLOWANCE_ACTUAL_CURRENCY_CODE';
                     Visible = true;
                 }
                 field("L15-PRODUCT_ALLOWANCE_REASON_CODE"; Rec."L15-PRODUCT_ALLOWANCE_REASON_CODE")
                 {
                     ApplicationArea = Basic, Suite, Jobs;
-                    Style = Strong;
+                    //Style = Strong;
                     ToolTip = 'L15-PRODUCT_ALLOWANCE_REASON_CODE';
                     Visible = true;
                 }
