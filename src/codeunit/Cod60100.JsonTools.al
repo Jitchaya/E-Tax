@@ -134,6 +134,7 @@ codeunit 60100 "Json Tools"
     var
         tblAPISetup: Record "API Setup";
         JsonObj: JsonObject;
+        ttt: Codeunit "TextFile";
     begin
         tblAPISetup.Get();
         JsonObj.Add('SellerTaxId', tblAPISetup.SellerTaxId);
@@ -143,7 +144,8 @@ codeunit 60100 "Json Tools"
         JsonObj.Add('AccessKey', tblAPISetup.AccessKey);
         JsonObj.Add('ServiceCode', tblAPISetup.ServiceCode);
         JsonObj.Add('TextContent', z_Tasks2Json(tblAPISetup."Primary Key"));
-        JsonObj.Add('PDFContent', tblAPISetup.PDFContent);
+        //JsonObj.Add('PDFContent', tblAPISetup.PDFContent);
+        JsonObj.Add('PDFContent', ttt.SendText());
         exit(JsonObj);
     end;
 

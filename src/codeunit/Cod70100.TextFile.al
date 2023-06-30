@@ -5,17 +5,40 @@ codeunit 70100 "TextFile"
 
     end;
 
-    procedure SendText()
+    procedure SendText(): Text
     var
         InStr: InStream;
         OutStr: OutStream;
         tmpBlob: Codeunit "Temp Blob";
         Base64Convert: Codeunit "Base64 Convert";
-        You: Text;
+        Content: Text;
+        tblAPIBody: Record "API Body";
+        gTextBase64: Text;
+        reportStandardSalesInvoice: Report "Standard Sales - Invoice";
+        tblSalesInvoiceHeader: Record "Sales Invoice Header";
+
     begin
-        tmpBlob.CreateOutStream(OutStr, TextEncoding::Windows);
-        Base64Convert.FromBase64(You, OutStr);
-        tmpBlob.CreateInStream(InStr, TextEncoding::Windows);
+        /*tblAPIBody.Get();
+        tblAPIBody.SetRange(idBody, tblAPIBody.idBody);*/
+        // Report.RdlcLayout(1306, InStr);
+        // tmpBlob.CreateOutStream(OutStr);
+        // yyy := Base64Convert.ToBase64(InStr);
+        // tmpBlob.CreateInStream(InStr);
+        // exit(yyy);
+
+        tmpBlob.CreateOutStream(OutStr);
+        //tmpBlob.CreateInStream(InStr);
+
+        Clear(reportStandardSalesInvoice);
+        Clear(tblSalesInvoiceHeader);
+        tblSalesInvoiceHeader.SetRange("No.", '103027');
+        reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
+        reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
+        Report.RdlcLayout(1306, InStr);
+        CopyStream(OutStr, InStr);
+        gTextBase64 := Base64Convert.ToBase64(InStr);
+        tmpBlob.CreateInStream(InStr);
+        exit(gTextBase64);
     end;
 
     procedure CreateTextFile(tblAPIBody: Record "API Body")
