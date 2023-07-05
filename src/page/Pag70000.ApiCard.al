@@ -514,6 +514,20 @@ page 70000 "API Card"
                     ExportExample.CreateTextFile(Rec);
                 end;
             }
+            /*action(Test)
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedIsBig = true;
+                PromotedCategory = Category4;
+                Image = ExportElectronicDocument;
+                trigger OnAction()
+                var
+                    ExportExample: Codeunit TextFile;
+                begin
+                    ExportExample.SendText();
+                end;
+            }*/
         }
     }
     var

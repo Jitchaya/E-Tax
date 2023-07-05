@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Company_Name">
+          <DataField>Company_Name</DataField>
+        </Field>
+        <Field Name="Company_Name2">
+          <DataField>Company_Name2</DataField>
+        </Field>
+        <Field Name="Company_Address">
+          <DataField>Company_Address</DataField>
+        </Field>
+        <Field Name="Company_Address2">
+          <DataField>Company_Address2</DataField>
+        </Field>
+        <Field Name="Company_Phone">
+          <DataField>Company_Phone</DataField>
+        </Field>
+        <Field Name="Company_VATRegistrationNo">
+          <DataField>Company_VATRegistrationNo</DataField>
+        </Field>
+        <Field Name="Company_Logo">
+          <DataField>Company_Logo</DataField>
+        </Field>
+        <Field Name="SelltoCustomer_No">
+          <DataField>SelltoCustomer_No</DataField>
+        </Field>
+        <Field Name="SelltoCustomer_Name">
+          <DataField>SelltoCustomer_Name</DataField>
+        </Field>
+        <Field Name="Sellto_Address">
+          <DataField>Sellto_Address</DataField>
+        </Field>
+        <Field Name="Sellto_Address2">
+          <DataField>Sellto_Address2</DataField>
+        </Field>
+        <Field Name="Sellto_Phone">
+          <DataField>Sellto_Phone</DataField>
+        </Field>
+        <Field Name="Shipto_Name">
+          <DataField>Shipto_Name</DataField>
+        </Field>
+        <Field Name="Shipto_Address">
+          <DataField>Shipto_Address</DataField>
+        </Field>
+        <Field Name="Shipto_Address2">
+          <DataField>Shipto_Address2</DataField>
+        </Field>
+        <Field Name="Sellto_No">
+          <DataField>Sellto_No</DataField>
+        </Field>
+        <Field Name="PostingDate">
+          <DataField>PostingDate</DataField>
+        </Field>
+        <Field Name="PaymentTermsCode">
+          <DataField>PaymentTermsCode</DataField>
+        </Field>
+        <Field Name="DueDate">
+          <DataField>DueDate</DataField>
+        </Field>
+        <Field Name="Salesperson">
+          <DataField>Salesperson</DataField>
+        </Field>
+        <Field Name="Line_No">
+          <DataField>Line_No</DataField>
+        </Field>
+        <Field Name="Line_Description">
+          <DataField>Line_Description</DataField>
+        </Field>
+        <Field Name="Line_Quantity">
+          <DataField>Line_Quantity</DataField>
+        </Field>
+        <Field Name="Line_QuantityFormat">
+          <DataField>Line_QuantityFormat</DataField>
+        </Field>
+        <Field Name="Line_UnitofMeasure">
+          <DataField>Line_UnitofMeasure</DataField>
+        </Field>
+        <Field Name="Line_UnitPrice">
+          <DataField>Line_UnitPrice</DataField>
+        </Field>
+        <Field Name="Line_UnitPriceFormat">
+          <DataField>Line_UnitPriceFormat</DataField>
+        </Field>
+        <Field Name="Line_Discount">
+          <DataField>Line_Discount</DataField>
+        </Field>
+        <Field Name="Line_DiscountFormat">
+          <DataField>Line_DiscountFormat</DataField>
+        </Field>
+        <Field Name="Line_Amount">
+          <DataField>Line_Amount</DataField>
+        </Field>
+        <Field Name="Line_AmountFormat">
+          <DataField>Line_AmountFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

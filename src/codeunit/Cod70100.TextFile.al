@@ -30,13 +30,24 @@ codeunit 70100 "TextFile"
         CopyStream(OutStr, InStr);
         gTextBase64 := Base64Convert.ToBase64(InStr);
         exit(gTextBase64);*/
-        tmpBlob.CreateOutStream(OutStr);
+
+        /*tmpBlob.CreateOutStream(OutStr);
         reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
         reportStandardSalesInvoice.RDLCLayout(InStr);
         reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
         CopyStream(OutStr, InStr);
         tmpBlob.CreateInStream(InStr, TextEncoding::UTF8);
         gTextBase64 := Base64Convert.ToBase64(InStr);
+        exit(gTextBase64)*/
+
+        tmpBlob.CreateOutStream(OutStr);
+        tmpBlob.CreateInStream(InStr);
+        tblSalesInvoiceHeader.SetRange("No.", '103027');
+        reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
+        reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
+        gTextBase64 := Base64Convert.ToBase64(InStr);
+        CopyStream(OutStr, InStr);
+        //reportStandardSalesInvoice.Run();
         exit(gTextBase64)
     end;
 
