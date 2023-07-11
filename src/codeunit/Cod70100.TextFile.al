@@ -16,6 +16,7 @@ codeunit 70100 "TextFile"
         gTextBase64: Text;
         reportStandardSalesInvoice: Report "Standard Sales - Invoice";
         tblSalesInvoiceHeader: Record "Sales Invoice Header";
+        reportPostedSaleInv: Report "Posted Sale Invoice";
 
     begin
         /*tmpBlob.CreateOutStream(OutStr);
@@ -43,8 +44,10 @@ codeunit 70100 "TextFile"
         tmpBlob.CreateOutStream(OutStr);
         tmpBlob.CreateInStream(InStr);
         tblSalesInvoiceHeader.SetRange("No.", '103027');
-        reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
-        reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
+        //reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
+        //reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
+        reportPostedSaleInv.SetTableView(tblSalesInvoiceHeader);
+        reportPostedSaleInv.SaveAs('', ReportFormat::Pdf, OutStr);
         gTextBase64 := Base64Convert.ToBase64(InStr);
         CopyStream(OutStr, InStr);
         //reportStandardSalesInvoice.Run();

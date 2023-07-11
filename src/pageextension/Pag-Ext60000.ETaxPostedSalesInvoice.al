@@ -116,6 +116,24 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                     Message('%1', format(cuTools.z_API2Json('0')));
                 end;
             }
+            action(Test)
+            {
+                ApplicationArea = All;
+                Image = Invoice;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                //Image = ExportElectronicDocument;
+                trigger OnAction()
+                var
+                    rptSalesInvoice: Report "Posted Sale Invoice";
+                //ExportExample: Codeunit TextFile;
+                begin
+                    //ExportExample.SendText();
+                    CurrPage.SetSelectionFilter(Rec);
+                    Report.Run(Report::"Posted Sale Invoice", true, true, Rec);
+                end;
+            }
         }
     }
     var

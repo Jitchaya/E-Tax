@@ -517,15 +517,16 @@ page 70000 "API Card"
             /*action(Test)
             {
                 ApplicationArea = All;
+                Image = Invoice;
                 Promoted = true;
+                PromotedCategory = Process;
                 PromotedIsBig = true;
-                PromotedCategory = Category4;
-                Image = ExportElectronicDocument;
+                //Image = ExportElectronicDocument;
                 trigger OnAction()
                 var
-                    ExportExample: Codeunit TextFile;
+                //ExportExample: Codeunit TextFile;
                 begin
-                    ExportExample.SendText();
+                    //ExportExample.SendText();
                 end;
             }*/
         }
@@ -534,6 +535,7 @@ page 70000 "API Card"
         m_Response: Text;
         m_Status: Text;
         m_JsonBody: Text;
+
     // RequestBody: Text;
     trigger OnAfterGetCurrRecord()
     begin
