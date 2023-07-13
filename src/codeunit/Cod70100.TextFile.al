@@ -5,45 +5,22 @@ codeunit 70100 "TextFile"
 
     end;
 
-    procedure SendText(): Text
+    procedure SendText(NotblSalesInvoiceHeader: Text): Text
     var
         InStr: InStream;
         OutStr: OutStream;
         tmpBlob: Codeunit "Temp Blob";
         Base64Convert: Codeunit "Base64 Convert";
         Content: Text;
-        tblAPIBody: Record "API Body";
         gTextBase64: Text;
-        reportStandardSalesInvoice: Report "Standard Sales - Invoice";
+        //reportStandardSalesInvoice: Report "Standard Sales - Invoice";
         tblSalesInvoiceHeader: Record "Sales Invoice Header";
         reportPostedSaleInv: Report "Posted Sale Invoice";
 
     begin
-        /*tmpBlob.CreateOutStream(OutStr);
-        tmpBlob.CreateInStream(InStr);
-
-        Clear(reportStandardSalesInvoice);
-        Clear(tblSalesInvoiceHeader);
-        tblSalesInvoiceHeader.SetRange("No.", '103027');
-        reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
-        Report.RdlcLayout(1306, InStr);
-        reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
-        CopyStream(OutStr, InStr);
-        gTextBase64 := Base64Convert.ToBase64(InStr);
-        exit(gTextBase64);*/
-
-        /*tmpBlob.CreateOutStream(OutStr);
-        reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
-        reportStandardSalesInvoice.RDLCLayout(InStr);
-        reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
-        CopyStream(OutStr, InStr);
-        tmpBlob.CreateInStream(InStr, TextEncoding::UTF8);
-        gTextBase64 := Base64Convert.ToBase64(InStr);
-        exit(gTextBase64)*/
-
         tmpBlob.CreateOutStream(OutStr);
         tmpBlob.CreateInStream(InStr);
-        tblSalesInvoiceHeader.SetRange("No.", '103027');
+        tblSalesInvoiceHeader.SetFilter("No.", NotblSalesInvoiceHeader);
         //reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
         //reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
         reportPostedSaleInv.SetTableView(tblSalesInvoiceHeader);

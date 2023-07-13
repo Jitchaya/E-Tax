@@ -33,6 +33,21 @@ report 60000 "Posted Sale Invoice"
             column(Company_Logo; m_tblCompanyInfo.Picture)
             {
             }
+            column(TotalAmount; m_vTotalAmount)
+            {
+            }
+            column(TotalDiscount; m_vTotalDiscount)
+            {
+            }
+            column(TotalAmountAfterDiscount; m_vTotalAmountAfterDiscount)
+            {
+            }
+            column(TotalVatAmount; m_vTotalVatAmount)
+            {
+            }
+            column(GrandTotalAmount; m_vGrandTotalAmount)
+            {
+            }
             column(SelltoCustomer_No; "Sell-to Customer No.")
             {
             }
@@ -181,10 +196,35 @@ report 60000 "Posted Sale Invoice"
         m_tblPaymentTerms: Record "Payment Terms";
         m_tblSalesPurchPerson: Record "Salesperson/Purchaser";
         m_tblVATAmountLine: Record "VAT Amount Line" temporary;
+        m_vLineAmountExclDiscount: Decimal;
+        m_vTotalAmount: Decimal;
+        m_vTotalDiscount: Decimal;
+        m_vTotalAmountAfterDiscount: Decimal;
+        m_vTotalVatAmount: Decimal;
+        m_vGrandTotalAmount: Decimal;
+        m_vTotalIncAmount: Decimal;
 
     local procedure z_CalAmountTotal()
+    var
+        tblSalesLine: Record "Sales Invoice Line";
     begin
+        Clear(m_vTotalAmount);
+        Clear(m_vTotalAmountAfterDiscount);
+        Clear(m_vTotalDiscount);
+        Clear(m_vGrandTotalAmount);
 
+        Clear(tblSalesLine);
+        tblSalesLine.SetRange("Document No.", "Sales Invoice Header"."No.");
+        tblSalesLine.SetFilter(Type, '<>%1', tblSalesLine.Type::"G/L Account");
+        if tblSalesLine.FindSet() then begin
+            repeat
+                m_vTotalAmount += tblSalesLine."Line Amount" + tblSalesLine."Line Discount Amount";
+                m_vTotalDiscount += tblSalesLine."Line Discount Amount" + tblSalesLine."Inv. Discount Amount";
+                m_vTotalIncAmount += tblSalesLine."Amount Including VAT";
+            until tblSalesLine.Next() = 0;
+
+            m_vTotalAmountAfterDiscount := m_vTotalAmount - m_vTotalDiscount;
+        end;
     end;
 
 }

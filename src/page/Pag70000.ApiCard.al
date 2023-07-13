@@ -449,22 +449,6 @@ page 70000 "API Card"
         {
             action(API)
             {
-                /*ApplicationArea = All;
-                PromotedCategory = Process;
-                Promoted = true;
-                PromotedIsBig = true;
-                Image = SendTo;*/
-                /*var
-                    Json: Codeunit "Json Tools";
-                begin
-                    Rec.FindFirst();
-                    Message('%1', Json.Rec2Json(Rec));
-                end;*/
-                /*var
-                    Tools: Codeunit "Json Tools";
-                begin
-                    Message('%1', format(Tools.API2Json('0')));
-                end;*/
                 ApplicationArea = All;
                 PromotedCategory = Process;
                 Promoted = true;

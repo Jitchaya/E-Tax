@@ -2842,6 +2842,36 @@ End Function
         <Field Name="Company_Logo">
           <DataField>Company_Logo</DataField>
         </Field>
+        <Field Name="TotalAmount">
+          <DataField>TotalAmount</DataField>
+        </Field>
+        <Field Name="TotalAmountFormat">
+          <DataField>TotalAmountFormat</DataField>
+        </Field>
+        <Field Name="TotalDiscount">
+          <DataField>TotalDiscount</DataField>
+        </Field>
+        <Field Name="TotalDiscountFormat">
+          <DataField>TotalDiscountFormat</DataField>
+        </Field>
+        <Field Name="TotalAmountAfterDiscount">
+          <DataField>TotalAmountAfterDiscount</DataField>
+        </Field>
+        <Field Name="TotalAmountAfterDiscountFormat">
+          <DataField>TotalAmountAfterDiscountFormat</DataField>
+        </Field>
+        <Field Name="TotalVatAmount">
+          <DataField>TotalVatAmount</DataField>
+        </Field>
+        <Field Name="TotalVatAmountFormat">
+          <DataField>TotalVatAmountFormat</DataField>
+        </Field>
+        <Field Name="GrandTotalAmount">
+          <DataField>GrandTotalAmount</DataField>
+        </Field>
+        <Field Name="GrandTotalAmountFormat">
+          <DataField>GrandTotalAmountFormat</DataField>
+        </Field>
         <Field Name="SelltoCustomer_No">
           <DataField>SelltoCustomer_No</DataField>
         </Field>
