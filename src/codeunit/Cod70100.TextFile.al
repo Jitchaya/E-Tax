@@ -18,16 +18,22 @@ codeunit 70100 "TextFile"
         reportPostedSaleInv: Report "Posted Sale Invoice";
 
     begin
+        //if NotblSalesInvoiceHeader <> '' then begin
         tmpBlob.CreateOutStream(OutStr);
         tmpBlob.CreateInStream(InStr);
         tblSalesInvoiceHeader.SetFilter("No.", NotblSalesInvoiceHeader);
-        //reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
-        //reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
+        //if tblSalesInvoiceHeader.FindFirst() then begin
+        reportPostedSaleInv.SetDocumentNo(NotblSalesInvoiceHeader);
         reportPostedSaleInv.SetTableView(tblSalesInvoiceHeader);
         reportPostedSaleInv.SaveAs('', ReportFormat::Pdf, OutStr);
         gTextBase64 := Base64Convert.ToBase64(InStr);
         CopyStream(OutStr, InStr);
+        //end;
+        //reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
+        //reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
         //reportStandardSalesInvoice.Run();
+
+        //end;
         exit(gTextBase64)
     end;
 

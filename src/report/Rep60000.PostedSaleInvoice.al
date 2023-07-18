@@ -93,7 +93,8 @@ report 60000 "Posted Sale Invoice"
             {
                 DataItemLink = "Document No." = FIELD("No.");
                 DataItemTableView = SORTING("Document No.", "Line No.");
-                column(Line_No; "Line No.")
+                column(Line_No;
+                "Line No.")
                 {
                 }
                 column(Line_Description; Description)
@@ -138,6 +139,13 @@ report 60000 "Posted Sale Invoice"
 
                 end;
             }
+            trigger OnPreDataItem()
+            begin
+                if m_gDocumentNo <> '' then begin
+                    "Sales Invoice Header".SetRange("No.", m_gDocumentNo);
+                end;
+
+            end;
         }
     }
     /*
@@ -203,6 +211,12 @@ report 60000 "Posted Sale Invoice"
         m_vTotalVatAmount: Decimal;
         m_vGrandTotalAmount: Decimal;
         m_vTotalIncAmount: Decimal;
+        m_gDocumentNo: Text;
+
+    procedure SetDocumentNo(p_text: Text)
+    begin
+        m_gDocumentNo := p_text;
+    end;
 
     local procedure z_CalAmountTotal()
     var
@@ -226,5 +240,4 @@ report 60000 "Posted Sale Invoice"
             m_vTotalAmountAfterDiscount := m_vTotalAmount - m_vTotalDiscount;
         end;
     end;
-
 }

@@ -119,7 +119,7 @@ codeunit 50400 "E-Tax API Test"
         HttpContent.getHeaders(ContentHeader);
         ContentHeader.clear();
         ContentHeader.Add('Content-Type', gContent_type);
-        HttpContent.WriteFrom(format(cu_Tools.z_API2Json('0')));
+        HttpContent.WriteFrom(format(cu_Tools.z_API2Json('0', 0)));
         HttpRequestMessage.Content := HttpContent;
         HttpClient.Send(HttpRequestMessage, HttpResponseMessage);
         HttpResponseMessage.Content.ReadAs(gJsonText);

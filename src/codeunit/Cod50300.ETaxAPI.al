@@ -5,7 +5,7 @@ codeunit 50300 "E-Tax API"
 
     end;
 
-    procedure z_SendRequest(Var p_APISetup: Record "API Setup"; var p_Reponse: Text) gStatus: text;
+    procedure z_SendRequest(Var p_APISetup: Record "API Setup"; var p_Reponse: Text; p_idBody: integer) gStatus: text;
     var
         gTokenURLTxt: Text[2048];
         // RequestBody: Label 'grant_type=password&username=%1&password=%2';
@@ -36,7 +36,7 @@ codeunit 50300 "E-Tax API"
                     z_SetAuthorization(p_APISetup, HttpClient);
                     RequestMessage.SetRequestUri(p_APISetup.URL);
                     Content.GetHeaders(RequestHeader);
-                    Content.WriteFrom(format(z_Tools.z_API2Json('0')));
+                    Content.WriteFrom(format(z_Tools.z_API2Json('0', p_idBody)));
                     RequestHeader.Remove(p_APISetup.FieldCaption("Content-Type"));
                     IF p_APISetup."Content-Type" = p_APISetup."Content-Type"::"X-www-form-urlencoded" THEN
                         RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'application/' + Format(p_APISetup."Content-Type"))

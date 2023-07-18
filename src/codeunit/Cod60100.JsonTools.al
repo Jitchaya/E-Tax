@@ -130,12 +130,13 @@ codeunit 60100 "Json Tools"
     end;
 
     //Complex API Json
-    procedure z_API2Json(p_id: Code[10]): JsonObject
+    procedure z_API2Json(p_id: Code[10]; p_idbody: integer): JsonObject
     var
         tblAPISetup: Record "API Setup";
         JsonObj: JsonObject;
         cuTextFile: Codeunit "TextFile";
         tblAPIBody: Record "API Body";
+        tblAPILine: Record "API Line";
     begin
         tblAPISetup.Get();
         JsonObj.Add('SellerTaxId', tblAPISetup.SellerTaxId);
@@ -146,9 +147,19 @@ codeunit 60100 "Json Tools"
         JsonObj.Add('ServiceCode', tblAPISetup.ServiceCode);
         JsonObj.Add('TextContent', z_Tasks2Json(tblAPISetup."Primary Key"));
         //JsonObj.Add('PDFContent', tblAPISetup.PDFContent);
-        JsonObj.Add('PDFContent', cuTextFile.SendText(tblAPIBody."B01-BUYER_ID"));
+        /*tblAPIBody.SetRange("Primary Key", tblAPISetup."Primary Key");
+        tblAPIBody.SetRange(idBody, tblAPIBody.idBody);*/
+        if p_idbody <> 0 then begin
+            if tblAPIBody.get(p_idbody) then
+                JsonObj.Add('PDFContent', cuTextFile.SendText(tblAPIBody."B01-BUYER_ID"));
+            ;
+        end;
+        //   JsonObj.Add('PDFContent', cuTextFile.SendText(tblAPIBody.idBody));
+
         exit(JsonObj);
     end;
+
+
 
     procedure z_Tasks2Json(LINEID: Code[10]): JsonObject
     var

@@ -464,9 +464,9 @@ page 70000 "API Card"
                 begin
                     tblAPISetup.Get();
                     //cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response);
-                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response);
+                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, 0);
                     Message(m_Status);
-                    m_JsonBody := format(cuTools.z_API2Json('0'));
+                    m_JsonBody := format(cuTools.z_API2Json('0', 0));
                     //Message(cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response));
                     if m_Response <> '' then
                         z_FillAddInResponse();
