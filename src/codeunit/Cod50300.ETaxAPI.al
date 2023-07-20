@@ -8,7 +8,6 @@ codeunit 50300 "E-Tax API"
     procedure z_SendRequest(Var p_APISetup: Record "API Setup"; var p_Reponse: Text; p_idBody: integer) gStatus: text;
     var
         gTokenURLTxt: Text[2048];
-        // RequestBody: Label 'grant_type=password&username=%1&password=%2';
         HttpClient: HttpClient;
         RequestMessage: HttpRequestMessage;
         ResponseMessage: HttpResponseMessage;

@@ -151,15 +151,11 @@ codeunit 60100 "Json Tools"
         tblAPIBody.SetRange(idBody, tblAPIBody.idBody);*/
         if p_idbody <> 0 then begin
             if tblAPIBody.get(p_idbody) then
-                JsonObj.Add('PDFContent', cuTextFile.SendText(tblAPIBody."B01-BUYER_ID"));
-            ;
+                JsonObj.Add('PDFContent', cuTextFile.SendPDF(tblAPIBody."B01-BUYER_ID"));
         end;
         //   JsonObj.Add('PDFContent', cuTextFile.SendText(tblAPIBody.idBody));
-
         exit(JsonObj);
     end;
-
-
 
     procedure z_Tasks2Json(LINEID: Code[10]): JsonObject
     var

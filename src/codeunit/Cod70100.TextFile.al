@@ -5,13 +5,12 @@ codeunit 70100 "TextFile"
 
     end;
 
-    procedure SendText(NotblSalesInvoiceHeader: Text): Text
+    procedure SendPDF(NotblSalesInvoiceHeader: Text): Text
     var
         InStr: InStream;
         OutStr: OutStream;
         tmpBlob: Codeunit "Temp Blob";
         Base64Convert: Codeunit "Base64 Convert";
-        Content: Text;
         gTextBase64: Text;
         //reportStandardSalesInvoice: Report "Standard Sales - Invoice";
         tblSalesInvoiceHeader: Record "Sales Invoice Header";
@@ -32,12 +31,58 @@ codeunit 70100 "TextFile"
         //reportStandardSalesInvoice.SetTableView(tblSalesInvoiceHeader);
         //reportStandardSalesInvoice.SaveAs('', ReportFormat::Pdf, OutStr);
         //reportStandardSalesInvoice.Run();
-
         //end;
         exit(gTextBase64)
     end;
 
-    procedure CreateTextFile(tblAPIBody: Record "API Body")
+    procedure SendFileText()
+    var
+        InStr: InStream;
+        OutStr: OutStream;
+        tmpBlob: Codeunit "Temp Blob";
+        Base64Convert: Codeunit "Base64 Convert";
+        Content: Text;
+        gTextBase64: Text;
+        tblAPIBody: Record "API Body";
+        gTokenURLTxt: Text[2048];
+        HttpClient: HttpClient;
+        RequestMessage: HttpRequestMessage;
+        ResponseMessage: HttpResponseMessage;
+        RequestHeader: HttpHeaders;
+        HttpContent: HttpContent;
+        //Base64Convert: Codeunit "Base64 Convert";
+        gAuthString: Text;
+        gAuthorization: Text;
+        gJsonText: Text;
+    begin
+        gAuthorization := 'MjY6cno2a2lKeGE2Q3JXOFNUcEYzcHlmZW0wN29LRDl3cUxKUTFjV3ZZOTpleUowWVhocFpDSTZJakF4TURVMU1qZ3dNVEF3T0RraUxDSndZWE56ZDI5eVpDSTZJa0Z0ZDJGNUl6RXlNelFpZlE0RVlKV0tpRTlwVHlRcVpZODBlSGZwU01GRlJ1SnFMeQ==';
+        tblAPIBody.Setrange("idBody", tblAPIBody.idBody);
+        HttpClient.Clear();
+        RequestHeader.Clear();
+        clear(ResponseMessage);
+        HttpContent.Clear();
+        RequestMessage.Method := 'POST';
+        HttpClient.DefaultRequestHeaders().Add('Authorization', StrSubstNo('Bearer %1', gAuthorization));
+        HttpClient.DefaultRequestHeaders().Add('User-Agent', 'Tech-Lucky_Postman');
+        RequestMessage.SetRequestUri('https://uatservice-etax.one.th/etaxjsonws/etaxsigndocument');
+        HttpContent.GetHeaders(RequestHeader);
+        //HttpContent.WriteFrom('ServiceCode','');
+        HttpContent.WriteFrom(CreateTextFile(tblAPIBody));
+        RequestHeader.Add('Content-Type', 'multipart/form-data');
+        RequestMessage.Content := HttpContent;
+        HttpClient.Send(RequestMessage, ResponseMessage);
+        RequestMessage.Content.ReadAs(gJsonText);
+        Message(gJsonText);
+    end;
+
+
+
+    procedure DownloadTextfile(tblAPIBody: Record "API Body")
+    begin
+
+    end;
+
+    procedure CreateTextFile(tblAPIBody: Record "API Body"): InStream
     var
         InStr: InStream;
         OutStr: OutStream;
@@ -122,6 +167,6 @@ codeunit 70100 "TextFile"
         ElapsedTime := EndTime - StartTime;
         //OutStr.WriteText('Elapsed time: ' + Format(ElapsedTime));
         tmpBlob.CreateInStream(InStr, TextEncoding::Windows);
-        DownloadFromStream(InStr, '', '', '', FileName);
+        //DownloadFromStream(InStr, '', '', '', FileName);
     end;
 }
