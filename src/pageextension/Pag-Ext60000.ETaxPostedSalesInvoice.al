@@ -24,6 +24,7 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                     tblAPISetup: Record "API Setup";
                     tblAPIResponse: Record "API Response";
                     count: Integer;
+                    NetIncTaxTotalMount: Decimal;
                 begin
                     tblAPISetup.Get();
                     tblAPIBody.Init();
@@ -55,9 +56,9 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                     tblAPIBody."F07-BASIS_CURRENCY_CODE1" := Rec."Currency Code";
                     tblAPIBody."F08-TAX_CAL_AMOUNT1" := '195.55';
                     tblAPIBody."F09-TAX_CAL_CURRENCY_CODE1" := Rec."Currency Code";
-                    tblAPIBody."F36-ORIGINAL_TOTAL_AMOUNT" := '2793.60';
+                    tblAPIBody."F36-ORIGINAL_TOTAL_AMOUNT" := '0';
                     tblAPIBody."F37-ORIGINAL_TOTAL_CURRENCY_CODE" := Rec."Currency Code";
-                    tblAPIBody."F38-LINE_TOTAL_AMOUNT" := '2793.60';
+                    tblAPIBody."F38-LINE_TOTAL_AMOUNT" := '0';
                     tblAPIBody."F39-LINE_TOTAL_CURRENCY_CODE" := 'THB';
                     tblAPIBody."F46-TAX_BASIS_TOTAL_AMOUNT" := '0';
                     tblAPIBody."F47-TAX_BASIS_TOTAL_CURRENCY_CODE" := Rec."Currency Code";
@@ -71,6 +72,7 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                     tblSaleInvoiceLine.Reset();
                     tblSaleInvoiceLine.SetRange("Document No.", Rec."No.");
                     count := 0;
+                    NetIncTaxTotalMount := 0;
                     if tblSaleInvoiceLine.FindSet() then
                         repeat
                             count := count + 1;
@@ -95,15 +97,17 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                             tblAPILine."L36-LINE_NET_INCLUDE_TAX_TOTAL_CURRENCY_CODE" := Rec."Currency Code";
                             tblAPILine.idBody := tblAPIBody.idBody;
                             tblAPILine.idLine := 0;
+                            NetIncTaxTotalMount := NetIncTaxTotalMount + round(tblSaleInvoiceLine."Amount Including VAT", 0.01);
                             //tblAPIBody."F06-BASIS_AMOUNT1" := tblAPILine."L22-LINE_BASIS_AMOUNT";
                             //tblAPIBody.Modify();
                             tblAPILine.Insert();
                         until tblSaleInvoiceLine.Next() = 0;
                     tblAPIBody."F01-LINE_TOTAL_COUNT" := Format(count);
+                    tblAPIBody."F50-GRAND_TOTAL_AMOUNT" := Format(NetIncTaxTotalMount).Replace(',', '');
                     tblAPIBody.Modify();
                     Message(format(tblAPILine.idBody));
                     tblAPISetup.Get();
-                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, tblAPIBody.idBody);
+                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, tblAPIBody.idBody, true);
                     Message(m_Status);
                     m_JsonBody := format(cuTools.z_API2Json('0', tblAPIBody.idBody));
                     //Message(cuETaxAPI.z_SendRequest(tblAPISetup, m_Response));
@@ -124,7 +128,7 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                     Message('%1', format(cuTools.z_API2Json('0', tblAPIBody.idBody)));
                 end;
             }
-            action(Test)
+            action(Report)
             {
                 ApplicationArea = All;
                 Image = Invoice;
@@ -140,6 +144,24 @@ pageextension 60000 "ETax Posted Sales Invoice" extends "Posted Sales Invoice"
                     //ExportExample.SendText();
                     CurrPage.SetSelectionFilter(Rec);
                     Report.Run(Report::"Posted Sale Invoice", true, true, Rec);
+                end;
+            }
+            action(SendTextFile)
+            {
+                ApplicationArea = All;
+                Image = Invoice;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                //Image = ExportElectronicDocument;
+                trigger OnAction()
+                var
+                    SendText: Codeunit TextFile;
+                    tblAPISetup: Record "API Setup";
+                    cuEtaxAPI: Codeunit "E-Tax API";
+                //ExportExample: Codeunit TextFile;
+                begin
+                    tblAPISetup.Get();
                 end;
             }
         }

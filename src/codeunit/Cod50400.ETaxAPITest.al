@@ -125,4 +125,101 @@ codeunit 50400 "E-Tax API Test"
         HttpResponseMessage.Content.ReadAs(gJsonText);
         Message(gJsonText);
     end;
+
+    procedure Initialize();
+    begin
+        //TempBlob.INIT();
+        tmpBlob.CreateOutStream(BodyOutStream);
+        NewLine[1] := 13;
+        NewLine[2] := 10;
+        CLEAR(Boundary);
+    end;
+
+    procedure AddBodyElement(Element: Text; ElementValue: Text);
+    var
+        BodyText: BigText;
+    begin
+        BodyText.ADDTEXT('--' + "Boundary");
+        BodyText.ADDTEXT(NewLine);
+        BodyText.ADDTEXT(STRSUBSTNO(Text001, Element));
+        BodyText.ADDTEXT(NewLine);
+        BodyText.ADDTEXT(NewLine);
+        BodyText.ADDTEXT(ElementValue);
+        BodyText.ADDTEXT(NewLine);
+        BodyText.Write(BodyOutStream);
+    end;
+
+    procedure AddFile(Element: Text; ElementValue: Text; FileName: Text; FileInStream: InStream);
+    var
+        BodyText: BigText;
+        StreamByte: Byte;
+    begin
+        BodyText.ADDTEXT('--' + "Boundary");
+        BodyText.ADDTEXT(NewLine);
+        BodyText.ADDTEXT(STRSUBSTNO(Text002, Element, FileName));
+        BodyText.ADDTEXT(NewLine);
+        BodyText.Write(BodyOutStream);
+        AddContentType(FileName);
+        Clear(BodyText);
+        BodyText.ADDTEXT(NewLine);
+        BodyText.WRITE(BodyOutStream);
+        while not FileInStream.EOS() do begin
+            FileInStream.Read(StreamByte);
+            BodyOutStream.WRITE(StreamByte);
+        end;
+    end;
+
+    procedure GetBlob(/*var pTempBlob : Record TempBlob*/);
+    var
+        InStreamTest: InStream;
+        OutStreamTest: OutStream;
+    begin
+        tmpBlob.CREATEINSTREAM(InStreamTest);
+        //pTempBlob.Blob.CREATEOUTSTREAM(OutStreamTest);
+        COPYSTREAM(OutStreamTest, InStreamTest);
+    end;
+
+    local procedure AddContentType(FileName: Text);
+    begin
+        case FileManagement.GetExtension(FileName) of
+            'zip':
+                begin
+                    AddContentTypeLine('application/x-zip-compressed');
+                end;
+            'form-data':
+                begin
+                    AddContentTypeLine('multipart/form-data');
+                end;
+        end;
+    end;
+
+    local procedure AddContentTypeLine(ContentType: Text);
+    var
+        BodyText: BigText;
+    begin
+        BodyText.ADDTEXT(STRSUBSTNO(Text003, ContentType));
+        BodyText.ADDTEXT(NewLine);
+        BodyText.Write(BodyOutStream);
+    end;
+
+    procedure FinishStream();
+    var
+        BodyText: BigText;
+    begin
+        BodyText.ADDTEXT(NewLine);
+        BodyText.ADDTEXT('--' + Boundary + '--');
+        BodyText.Write(BodyOutStream);
+    end;
+
+    var
+        FileManagement: Codeunit "File Management";
+        //TempBlob : Record TempBlob;
+        Boundary: Text;
+        NewLine: Text[2];
+        BodyOutStream: OutStream;
+        Text001: TextConst ENU = 'Content-Disposition: form-data; name="%1"', ENG = 'Content-Disposition: form-data; name="%1"';
+        Text002: TextConst ENU = 'Content-Disposition: form-data; name="%1"; filename="%2"', ENG = 'Content-Disposition: form-data; name="%1"; filename="%2"';
+        Text003: TextConst ENU = 'Content-Type: %1', ENG = 'Content-Type: %1';
+        tmpBlob: Codeunit "Temp Blob";
+
 }

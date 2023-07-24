@@ -447,7 +447,7 @@ page 70000 "API Card"
     {
         area(Processing)
         {
-            action(API)
+            action(SendJson)
             {
                 ApplicationArea = All;
                 PromotedCategory = Process;
@@ -463,14 +463,16 @@ page 70000 "API Card"
                     cuTools: Codeunit "Json Tools";
                 begin
                     tblAPISetup.Get();
+                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, Rec.idBody, true);
                     //cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response);
-                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, 0);
+                    //m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, 0);
                     Message(m_Status);
-                    m_JsonBody := format(cuTools.z_API2Json('0', 0));
+                    m_JsonBody := format(cuTools.z_API2Json('0', Rec.idBody));
                     //Message(cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response));
                     if m_Response <> '' then
                         z_FillAddInResponse();
                     //tblAPIResponse.SetResponseBlob(m_Response);
+                    //initResponse();
                     tblAPIResponse.Init();
                     tblAPIResponse.EntryNo := 0;
                     tblAPIResponse.URL := tblAPISetup.URL;
@@ -481,7 +483,8 @@ page 70000 "API Card"
                     tblAPIResponse.ETaxID := Rec.idBody;
                     tblAPIResponse.InvoiceNumber := Rec."B01-BUYER_ID";
                     tblAPIResponse.Insert(true);
-                    //Message('%1', format(cuTools.z_API2Json('0')));
+                    //Message('%1', format(cuTools.z_API2Json('0', Rec.idBody)));
+
                 end;
             }
             action(Export)
@@ -489,16 +492,19 @@ page 70000 "API Card"
                 ApplicationArea = All;
                 Promoted = true;
                 PromotedIsBig = true;
-                PromotedCategory = Category4;
+                PromotedCategory = Process;
                 Image = ExportElectronicDocument;
                 trigger OnAction()
                 var
+                    PayloadInStream: InStream;
                     ExportExample: Codeunit TextFile;
                 begin
-                    ExportExample.CreateTextFile(Rec);
+                    //ExportExample.CreateTextFile(Rec/*, true*/);
+                    ExportExample.Download(Rec);
+                    //ExportExample.PostTextfileTest(Rec);
                 end;
             }
-            /*action(Test)
+            action(SendTextFile)
             {
                 ApplicationArea = All;
                 Image = Invoice;
@@ -508,11 +514,18 @@ page 70000 "API Card"
                 //Image = ExportElectronicDocument;
                 trigger OnAction()
                 var
+                    SendText: Codeunit TextFile;
+                    tblAPISetup: Record "API Setup";
+                    cuEtaxAPI: Codeunit "E-Tax API";
                 //ExportExample: Codeunit TextFile;
                 begin
+                    //SendText.CreateTextFile(Rec/*, false*/);
                     //ExportExample.SendText();
+                    tblAPISetup.Get();
+                    m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, Rec.idBody, false);
+                    //initResponse();
                 end;
-            }*/
+            }
         }
     }
     var
@@ -536,56 +549,21 @@ page 70000 "API Card"
         CurrPage.Response.SetContent(StrSubstNo('<textarea Id="TextArea" maxlength="%2" style="width:100%;height:100%;resize: none; font-family:"Segoe UI", "Segoe WP", Segoe, device-segoe, Tahoma, Helvetica, Arial, sans-serif !important; font-size: 10.5pt !important;" OnChange="window.parent.WebPageViewerHelper.TriggerCallback(document.getElementById(''TextArea'').value)">%1</textarea>', m_Response, MaxStrLen(m_Response)));
     end;
 
-    /*procedure API2Json(id: Integer): JsonObject
+    procedure initResponse()
     var
-        API: Record "API Setup";
-        JO: JsonObject;
+        tblAPIResponse: Record "API Response";
+        tblAPISetup: Record "API Setup";
     begin
-        API.Get(id);
-        JO.Add('SellerTaxId', API.SellerTaxId);
-        JO.Add('SellerBranchId', API.SellerBranchId);
-        JO.Add('UserCode', API.UserCode);
-        JO.Add('AccessKey', API.AccessKey);
-        JO.Add('APIKey', API.APIKey);
-        JO.Add('ServiceCode', API.ServiceCode);
-        JO.Add('TextContent', Tasks2Json(API.idHeader));
-        JO.Add('PDFContent', API.PDFContent);
-        exit(JO);
+        tblAPISetup.Get();
+        tblAPIResponse.Init();
+        tblAPIResponse.EntryNo := 0;
+        tblAPIResponse.URL := tblAPISetup.URL;
+        tblAPIResponse.Method := tblAPISetup.Method;
+        tblAPIResponse.SetResponseBlob(m_Response);
+        tblAPIResponse.SetJsonBodyBlob(m_JsonBody);
+        //tblAPIResponse.Response := m_Response;
+        tblAPIResponse.ETaxID := Rec.idBody;
+        tblAPIResponse.InvoiceNumber := Rec."B01-BUYER_ID";
+        tblAPIResponse.Insert(true);
     end;
-
-    procedure Tasks2Json(LINEID: Integer): JsonObject
-    var
-        Task: Record "API Body";
-        Line: Record "API Line";
-        JA: JsonArray;
-        JO: JsonObject;
-        J2: JsonObject;
-        Tools: Codeunit "Json Tools";
-    begin
-        Task.Setrange(idHeader, LINEID);
-        if Task.FindSet() then
-            repeat
-                Line.SetRange(idHeader, LINEID);
-                Line.SetRange(idBody, Task.idBody);
-                JO := Tools.Rec2Json(Task, 3);
-                JO.Add('LINE_ITEM_INFORMATION', Line2Json(Task));
-            //JA.Add(JO);
-            until Task.Next() = 0;
-        exit(JO);
-    end;
-
-    procedure Line2Json(Task: Record "API Body"): JsonArray
-    var
-        JA: JsonArray;
-        JLE: Record "API Line";
-        Tools: Codeunit "Json Tools";
-    begin
-        JLE.Setrange("idBody", Task.idBody);
-        JLE.Setrange("idHeader", Task.idHeader);
-        if JLE.FindSet() then
-            repeat
-                JA.Add(Tools.Rec2Json(JLE, 4));
-            until JLE.Next() = 0;
-        exit(JA);
-    end;*/
 }

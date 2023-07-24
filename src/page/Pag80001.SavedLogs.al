@@ -4,6 +4,7 @@ page 80001 "Saved Logs"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "API Response";
+    CardPageID = "Save Logs Card";
     InsertAllowed = false;
     DeleteAllowed = false;
     ModifyAllowed = false;

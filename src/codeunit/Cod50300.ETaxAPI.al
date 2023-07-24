@@ -5,7 +5,7 @@ codeunit 50300 "E-Tax API"
 
     end;
 
-    procedure z_SendRequest(Var p_APISetup: Record "API Setup"; var p_Reponse: Text; p_idBody: integer) gStatus: text;
+    procedure z_SendRequest(Var p_APISetup: Record "API Setup"; var p_Reponse: Text; p_idBody: integer; p_Boo: Boolean) gStatus: text;
     var
         gTokenURLTxt: Text[2048];
         HttpClient: HttpClient;
@@ -16,11 +16,18 @@ codeunit 50300 "E-Tax API"
         //Base64Convert: Codeunit "Base64 Convert";
         gAuthString: Text;
         z_Tools: Codeunit "Json Tools";
+        z_Textfile: Codeunit TextFile;
+        tblAPIBody: Record "API Body";
+        PayloadInStream: InStream;
+        FileName: Text;
+        tmpBlob: Codeunit "Temp Blob";
     begin
+        if tblAPIBody.Get(p_idBody) then;
         HttpClient.Clear();
         RequestHeader.Clear();
         clear(ResponseMessage);
         Content.Clear();
+        Clear(RequestMessage);
         //HTTP GET/ POST Request
         case p_APISetup.Method
         of
@@ -35,12 +42,27 @@ codeunit 50300 "E-Tax API"
                     z_SetAuthorization(p_APISetup, HttpClient);
                     RequestMessage.SetRequestUri(p_APISetup.URL);
                     Content.GetHeaders(RequestHeader);
-                    Content.WriteFrom(format(z_Tools.z_API2Json('0', p_idBody)));
+                    if p_Boo then begin
+                        Content.WriteFrom(format(z_Tools.z_API2Json('0', p_idBody)));
+                    end
+                    else begin
+                        FileName := 'TestFile.txt';
+                        z_Textfile.PostTextfileTest(tblAPIBody, tmpBlob, PayloadInStream);
+                        Content.WriteFrom(PayloadInStream);
+                        DownloadFromStream(PayloadInStream, '', '', '', FileName);
+                    end;
                     RequestHeader.Remove(p_APISetup.FieldCaption("Content-Type"));
-                    IF p_APISetup."Content-Type" = p_APISetup."Content-Type"::"X-www-form-urlencoded" THEN
-                        RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'application/' + Format(p_APISetup."Content-Type"))
+                    if p_APISetup."Content-Type" = p_APISetup."Content-Type"::"Form-Data" THEN
+                        RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'multipart/' + Format(p_APISetup."Content-Type") + ';boundary=boundary')
                     else
                         RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'application/' + Format(p_APISetup."Content Format"));
+
+                    /*RequestHeader.Remove(p_APISetup.FieldCaption("Content-Type"));
+                    if p_APISetup."Content-Type" = p_APISetup."Content-Type"::"Form-Data" THEN
+                        RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'multipart/' + Format(p_APISetup."Content-Type"))
+                    else
+                        RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'application/' + Format(p_APISetup."Content Format"));
+                    RequestMessage.Content := Content;*/
                     RequestMessage.Content := Content;
                     HttpClient.Send(RequestMessage, ResponseMessage);
                 end;
