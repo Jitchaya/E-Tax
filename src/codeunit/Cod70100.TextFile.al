@@ -95,7 +95,7 @@ codeunit 70100 "TextFile"
         //key6 Value6
         PayloadOutStream.WriteText('Content-Disposition: form-data; name="ServiceCode"' + CRLF);
         PayloadOutStream.WriteText(CRLF);
-        PayloadOutStream.WriteText(tblAPISetup.ServiceCode + CRLF);
+        PayloadOutStream.WriteText(Format(tblAPISetup.ServiceCode) + CRLF);
         PayloadOutStream.WriteText('--boundary' + CRLF);
 
         PayloadOutStream.WriteText('Content-Disposition: form-data; name="TextContent"; filename="Test.txt"' + CRLF);
@@ -143,6 +143,8 @@ codeunit 70100 "TextFile"
         gAuthorization: Text;
         gJsonText: Text;
         tblAPILine: Record "API Line";
+        int: Integer;
+        next: Integer;
     begin
         StartTime := System.Time;
         CRLF[1] := 13;
@@ -175,10 +177,13 @@ codeunit 70100 "TextFile"
         OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPIBody."B22-BUYER_CITY_NAME", tblAPIBody."B23-BUYER_COUNTRY_SUB_DIV_ID", tblAPIBody."B24-BUYER_COUNTRY_SUB_DIV_NAME"));
         OutStr.WriteText(StrSubstNo('"%1","%2","%3"', tblAPIBody."B25-BUYER_COUNTRY_ID") + CRLF);
         //L Group
+        int := 1;
         tblAPILine.SetRange("idBody", tblAPIBody.idBody);
         if tblAPILine.FindSet() then
             repeat
-                OutStr.WriteText(StrSubstNo('"L","%1","%2","%3",', tblAPILine."L01-LINE_ID", tblAPILine."L02-PRODUCT_ID", tblAPILine."L03-PRODUCT_NAME"));
+                if int = 1 then;
+                OutStr.WriteText(StrSubstNo('"L",'));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L01-LINE_ID", tblAPILine."L02-PRODUCT_ID", tblAPILine."L03-PRODUCT_NAME"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L04-PRODUCT_DESC", tblAPILine."L05-PRODUCT_BATCH_ID", tblAPILine."L06-PRODUCT_EXPIRE_DTM"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L07-PRODUCT_CLASS_CODE", tblAPILine."L08-PRODUCT_CLASS_NAME", tblAPILine."L09-PRODUCT_ORIGIN_COUNTRY_ID"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L10-PRODUCT_CHARGE_AMOUNT", tblAPILine."L11-PRODUCT_CHARGE_CURRENCY_CODE", tblAPILine."L12-PRODUCT_ALLOWANCE_CHARGE_IND"));
@@ -194,7 +199,25 @@ codeunit 70100 "TextFile"
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L40-PRODUCT_REMARK4", tblAPILine."L41-PRODUCT_REMARK5", tblAPILine."L42-PRODUCT_REMARK6"));
                 OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L43-PRODUCT_REMARK7", tblAPILine."L44-PRODUCT_REMARK8", tblAPILine."L45-PRODUCT_REMARK9"));
                 OutStr.WriteText(StrSubstNo('"%1"', tblAPILine."L46-PRODUCT_REMARK10"));
-            until tblAPILine.Next() = 0;        //F Group
+                if int > 1 then;
+                OutStr.WriteText(StrSubstNo(',"%1","%2","%3",', tblAPILine."L01-LINE_ID", tblAPILine."L02-PRODUCT_ID", tblAPILine."L03-PRODUCT_NAME"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L04-PRODUCT_DESC", tblAPILine."L05-PRODUCT_BATCH_ID", tblAPILine."L06-PRODUCT_EXPIRE_DTM"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L07-PRODUCT_CLASS_CODE", tblAPILine."L08-PRODUCT_CLASS_NAME", tblAPILine."L09-PRODUCT_ORIGIN_COUNTRY_ID"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L10-PRODUCT_CHARGE_AMOUNT", tblAPILine."L11-PRODUCT_CHARGE_CURRENCY_CODE", tblAPILine."L12-PRODUCT_ALLOWANCE_CHARGE_IND"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L13-PRODUCT_ALLOWANCE_ACTUAL_AMOUNT", tblAPILine."L14-PRODUCT_ALLOWANCE_ACTUAL_CURRENCY_CODE", tblAPILine."L15-PRODUCT_ALLOWANCE_REASON_CODE"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L16-PRODUCT_ALLOWANCE_REASON", tblAPILine."L17-PRODUCT_QUANTITY", tblAPILine."L18-PRODUCT_UNIT_CODE"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L19-PRODUCT_QUANTITY_PER_UNIT", tblAPILine."L20-LINE_TAX_TYPE_CODE", tblAPILine."L21-LINE_TAX_CAL_RATE"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L22-LINE_BASIS_AMOUNT", tblAPILine."L23-LINE_BASIS_CURRENCY_CODE", tblAPILine."L24-LINE_TAX_CAL_AMOUNT"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L25-LINE_TAX_CAL_CURRENCY_CODE", tblAPILine."L26-LINE_ALLOWANCE_CHARGE_IND", tblAPILine."L27-LINE_ALLOWANCE_ACTUAL_AMOUNT"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L28-LINE_ALLOWANCE_ACTUAL_CURRENCY_CODE", tblAPILine."L29-LINE_ALLOWANCE_REASON_CODE", tblAPILine."L30-LINE_ALLOWANCE_REASON"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L31-LINE_TAX_TOTAL_AMOUNT", tblAPILine."L32-LINE_TAX_TOTAL_CURRENCY_CODE", tblAPILine."L33-LINE_NET_TOTAL_AMOUNT"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L34-LINE_NET_TOTAL_CURRENCY_CODE", tblAPILine."L35-LINE_NET_INCLUDE_TAX_TOTAL_AMOUNT", tblAPILine."L36-LINE_NET_INCLUDE_TAX_TOTAL_CURRENCY_CODE"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L37-PRODUCT_REMARK1", tblAPILine."L38-PRODUCT_REMARK2", tblAPILine."L39-PRODUCT_REMARK3"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L40-PRODUCT_REMARK4", tblAPILine."L41-PRODUCT_REMARK5", tblAPILine."L42-PRODUCT_REMARK6"));
+                OutStr.WriteText(StrSubstNo('"%1","%2","%3",', tblAPILine."L43-PRODUCT_REMARK7", tblAPILine."L44-PRODUCT_REMARK8", tblAPILine."L45-PRODUCT_REMARK9"));
+                OutStr.WriteText(StrSubstNo('"%1"', tblAPILine."L46-PRODUCT_REMARK10"));
+            until tblAPILine.Next() = 0;
+        //space
         OutStr.WriteText(CRLF);
         //F Group
         OutStr.WriteText(StrSubstNo('"F","%1","%2","%3",', tblAPIBody."F01-LINE_TOTAL_COUNT", tblAPIBody."F02-DELIVERY_OCCUR_DTM", tblAPIBody."F03-INVOICE_CURRENCY_CODE"));

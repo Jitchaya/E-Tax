@@ -56,13 +56,6 @@ codeunit 50300 "E-Tax API"
                         RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'multipart/' + Format(p_APISetup."Content-Type") + ';boundary=boundary')
                     else
                         RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'application/' + Format(p_APISetup."Content Format"));
-
-                    /*RequestHeader.Remove(p_APISetup.FieldCaption("Content-Type"));
-                    if p_APISetup."Content-Type" = p_APISetup."Content-Type"::"Form-Data" THEN
-                        RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'multipart/' + Format(p_APISetup."Content-Type"))
-                    else
-                        RequestHeader.Add(p_APISetup.FieldCaption("Content-Type"), 'application/' + Format(p_APISetup."Content Format"));
-                    RequestMessage.Content := Content;*/
                     RequestMessage.Content := Content;
                     HttpClient.Send(RequestMessage, ResponseMessage);
                 end;

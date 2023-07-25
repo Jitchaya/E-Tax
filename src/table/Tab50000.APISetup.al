@@ -71,7 +71,7 @@ table 50000 "API Setup"
             DataClassification = ToBeClassified;
             //InitValue = 'P@ssw0rd';
         }
-        field(9; "ServiceCode"; Text[250])
+        field(9; "ServiceCode"; Enum ServiceCode)
         {
             Caption = 'ServiceCode';
             DataClassification = ToBeClassified;

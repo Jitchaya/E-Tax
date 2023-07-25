@@ -75,11 +75,11 @@ page 60000 "Page Setup"
                     ApplicationArea = All;
                     Visible = false;
                 }
-                field("PDFContent"; Rec."PDFContent")
+                /*field("PDFContent"; Rec."PDFContent")
                 {
                     Caption = 'PDFContent';
                     ApplicationArea = All;
-                }
+                }*/
             }
             group(Header)
             {
@@ -110,11 +110,11 @@ page 60000 "Page Setup"
                     Caption = 'Content Format';
                     ApplicationArea = All;
                 }
-                field(PDFFile; Rec.PDFFile)
+                /*field(PDFFile; Rec.PDFFile)
                 {
                     Caption = 'PDFFile';
                     ApplicationArea = All;
-                }
+                }*/
             }
         }
     }
@@ -122,15 +122,18 @@ page 60000 "Page Setup"
     {
         area(Processing)
         {
-            action("API Setup")
+            /*action("API Setup")
             {
-                ApplicationArea = Basic, Suite;
+                ApplicationArea = all;
                 Caption = 'E-TAX';
                 Image = Card;
                 RunObject = Page "API Card";
                 ToolTip = 'Set up API CARD';
-            }
-            action(Import)
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+            }*/
+            /*action(Import)
             {
                 ApplicationArea = all;
                 Caption = 'Import';
@@ -143,17 +146,16 @@ page 60000 "Page Setup"
                     Output: OutStream;
                     FileName: Text;
                 begin
-                    if UploadIntoStream('Select File', '', '', FileName, Input) Then begin
+                    if UploadIntoStream('', '', '', FileName, Input) Then begin
                         TempBlob.CreateOutStream(Output);
-                        CopyStream(Output, Input);
+                        //CopyStream(Output, Input);
                         Rec.CalcFields(PDFFile);
                         Rec.PDFFile.CreateOutStream(Output);
                         TempBlob.CreateInStream(Input);
-                        CopyStream(Output, Input);
                     end
                 end;
-            }
-            action(Show)
+            }*/
+            /*action(Show)
             {
                 ApplicationArea = all;
                 Caption = 'Show';
@@ -172,8 +174,8 @@ page 60000 "Page Setup"
                         Message('Number = %1', BI);
                     end
                 end;
-            }
-            action(what)
+            }*/
+            /*action(what)
             {
                 Caption = 'From Persistent';
                 ApplicationArea = all;
@@ -188,10 +190,7 @@ page 60000 "Page Setup"
                     Rec.PDFFile.CreateOutStream(Output);
                     Persistent.CopyToOutStream(1, Output);
                 end;
-            }
-        }
-        area(Promoted)
-        {
+            }*/
         }
     }
 

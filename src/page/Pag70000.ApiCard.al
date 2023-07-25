@@ -464,25 +464,13 @@ page 70000 "API Card"
                 begin
                     tblAPISetup.Get();
                     m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, Rec.idBody, true);
-                    //cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response);
-                    //m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, 0);
                     Message(m_Status);
                     m_JsonBody := format(cuTools.z_API2Json('0', Rec.idBody));
                     //Message(cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response));
                     if m_Response <> '' then
                         z_FillAddInResponse();
-                    //tblAPIResponse.SetResponseBlob(m_Response);
-                    //initResponse();
-                    tblAPIResponse.Init();
-                    tblAPIResponse.EntryNo := 0;
-                    tblAPIResponse.URL := tblAPISetup.URL;
-                    tblAPIResponse.Method := tblAPISetup.Method;
-                    tblAPIResponse.SetResponseBlob(m_Response);
-                    tblAPIResponse.SetJsonBodyBlob(m_JsonBody);
-                    //tblAPIResponse.Response := m_Response;
-                    tblAPIResponse.ETaxID := Rec.idBody;
-                    tblAPIResponse.InvoiceNumber := Rec."B01-BUYER_ID";
-                    tblAPIResponse.Insert(true);
+                    //init Response
+                    initResponse();
                     //Message('%1', format(cuTools.z_API2Json('0', Rec.idBody)));
 
                 end;
@@ -523,7 +511,7 @@ page 70000 "API Card"
                     //ExportExample.SendText();
                     tblAPISetup.Get();
                     m_Status := cuEtaxAPI.z_SendRequest(tblAPISetup, m_Response, Rec.idBody, false);
-                    //initResponse();
+                    initResponse();
                 end;
             }
         }
