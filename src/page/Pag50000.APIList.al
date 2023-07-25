@@ -52,14 +52,6 @@ page 50000 "API List"
     {
         area(Processing)
         {
-            action(ActionName)
-            {
-                ApplicationArea = All;
-                trigger OnAction()
-                begin
-
-                end;
-            }
         }
     }
 }

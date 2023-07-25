@@ -75,7 +75,7 @@ page 80001 "Saved Logs"
     {
         area(Processing)
         {
-            action(ActionName)
+            action(DeleteAll)
             {
                 ApplicationArea = All;
                 Image = Delete;
