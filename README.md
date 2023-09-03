@@ -1,0 +1,2 @@
+# E-Tax
+I have worked as an ERP Developer specializing in Microsoft Business Central. My responsibilities included integrating Azure DevOps with Business Central, implementing e-invoicing for tax purposes in both JSON and Textfile formats, and ensuring data synchronization between the ERP system and the tax department. Additionally, I have experience in generating reports within the ERP system and transmitting data files in PDF format to the tax authorities.
